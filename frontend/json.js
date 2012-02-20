@@ -7,7 +7,6 @@ $(document).ready(function(){
 		//data from JSON
 		$("#event").text(destData.tag);
 		$("#arrival").text(destData.eta);
-		$("#number").text(destData.number);
 		$("#price").text(destData.kmCost);
 		$("#message").text(destData.message);
 		
@@ -35,8 +34,11 @@ $(document).ready(function(){
 
 			data.legs.shift();
 
-		if(!data.legs.length == 0){
-			var passengerA = [];
+		if(data.legs.length != 0){
+						
+			var infowindow = new google.maps.InfoWindow({
+			    content: "holding"
+			});
 
 			for(var i = 0; i<data.legs.length; i++){
 				
@@ -45,27 +47,14 @@ $(document).ready(function(){
 					position: new google.maps.LatLng(data.legs[i].from_lat,data.legs[i].from_lng),
 					title: data.legs[i]["name"]
 				});
-				passengerA.push(passenger);
-				
 
-			}
-
+				google.maps.event.addListener(passenger, 'click', function () {
+					infowindow.setContent(this["title"]);
+					infowindow.open(map, this);
+				});
 			
-				for (var i = 0; i < passengerA.length(); i++) {
-
-					var infowindow = new google.maps.InfoWindow({
-					    content: passengerA[i].testt
-					});
-
-					var marker = passengerA[i];
-					google.maps.event.addListener(marker, 'click', function () {
-						// where I have added .html to the marker object.
-						console.log(infowindow);
-						infowindow.open(map, this);
-					});
-				}
+			}
 		}
-
 
 	});
 });
