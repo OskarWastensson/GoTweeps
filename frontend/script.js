@@ -10,6 +10,10 @@ var departure;
 var destination;
 var initialLocation;
 var browserSupportFlag = new Boolean();
+var directionsDisplay = new google.maps.DirectionsRenderer();
+var depLocation;
+var destLocation;   
+   
     
 function initialize(){
 //MAP
@@ -20,9 +24,11 @@ function initialize(){
     center: sthlm,
     mapTypeId: google.maps.MapTypeId.ROADMAP
   };
+    
         
   map = new google.maps.Map(document.getElementById("map_canvas"), options);
-  
+  directionsDisplay.setMap(map);
+
   //W3C geolocation
   if(navigator.geolocation){
     browserSupportFlag = true;
@@ -77,6 +83,38 @@ function initialize(){
 
         
 }
+  
+function directions(destination, origin, locations) {
+    var directionsService = new google.maps.DirectionsService();
+
+    var waypoints = [];
+    $.each(locations, function(i, location) {
+      waypoints.push({location: location, stopover: true});
+    }); 
+
+    var request = {
+        origin: origin ,
+        destination: destination,
+        waypoints: waypoints, 
+        travelMode: google.maps.DirectionsTravelMode.DRIVING,
+        optimizeWaypoints: true,
+    };
+    console.log('DirectionsService:');
+    directionsService.route(request, function(response, status) {
+      if (status == google.maps.DirectionsStatus.OK) {
+        directionsDisplay.setDirections(response);
+        var data = update_legs(response.routes[0], response.cg.destination);
+        console.log(response);
+      } else {
+        // bad request to directions!
+        console.log(status);
+      }
+
+    });
+    return data;
+  }
+  
+  
     
 $(document).ready(function() { 
          
@@ -101,16 +139,24 @@ $(document).ready(function() {
       select: function(event, ui) {
         $("#latitude1").val(ui.item.latitude);
         $("#longitude1").val(ui.item.longitude);
-        var depLocation = new google.maps.LatLng(ui.item.latitude, ui.item.longitude);
-        departure.setPosition(depLocation);
-        map.setCenter(depLocation);
+        depLocation = new google.maps.LatLng(ui.item.latitude, ui.item.longitude);
+        if(destLocation) {
+          directions(depLocation, destLocation, []);
+          
+        } else {
+          departure.setPosition(depLocation);
+          map.setCenter(depLocation);
+        }
       },
       select: function(event, ui) {
         $("#latitude2").val(ui.item.latitude);
         $("#longitude2").val(ui.item.longitude);
-        var destLocation = new google.maps.LatLng(ui.item.latitude, ui.item.longitude);
-        destination.setPosition(destLocation);
-        map.setCenter(destLocation);
+        destLocation = new google.maps.LatLng(ui.item.latitude, ui.item.longitude);
+        if(depLocation) {
+          directions(depLocation, destLocation, []);
+        };
+        /*destination.setPosition(destLocation);
+        map.setCenter(destLocation);*/
       }
     });
   });
