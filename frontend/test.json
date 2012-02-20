@@ -1,0 +1,47 @@
+{
+	"0":{
+		"id":"1",					
+		"tag":"Jensen",				
+		"destination_lng":"18.029231500000037",			
+		"destination_lat":"59.3426134",
+		"eta":"2012-02-16 15:05:00",	
+		"number":"3",	
+		"kmCost":"1",				
+		"message":"Jag vill kunna åka långt utan att någon pratar med mig!",       	
+		"users":"1",				
+		"owner":"@oskarwastensson"
+		},
+	
+	"legs":[
+				{
+					"trips":"1",
+					"id":"1",
+					"sequence":"1",
+					"from_lng":"18.129231500000037",
+					"from_lat":"59.2426134",
+					"share_fee":"7.0000",
+					"pick_up_fee":"3",
+					"name":"@oskarwastensson"
+				},
+				{
+					"trips":"1",
+					"id":"2",
+					"sequence":"2",
+					"from_lng":"18.029231500000037",
+					"from_lat":"59.4426134",
+					"share_fee":"1.5000",
+					"pick_up_fee":"2",
+					"name":"@testpilot1"
+				},
+				{
+					"trips":"1",
+					"id":"3",
+					"sequence":"3",
+					"from_lng":"18.329231500000037",
+					"from_lat":"59.1426134",
+					"share_fee":"1.6667",
+					"pick_up_fee":"0",
+					"name":"@testpilot2"
+				}
+			]
+}

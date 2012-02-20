@@ -1,0 +1,87 @@
+html, body{
+	height: 100%;
+	width: 100%;
+	margin: 0px;
+	padding: 0px;
+	font-family: "Arial", "Verdana", sans-serif;
+}
+
+#map_canvas{
+	height: 100%;
+	width: 100%;
+	margin: 0;
+}
+
+.form, .menu {
+	position: absolute;
+	background-color: #fff;
+	border-radius: 15px;
+	opacity: 0.9;
+	-moz-opacity: 0.9;
+	filter:alpha(opacity=9);
+	z-index: 10;
+}
+
+.form {
+	top: 20px;
+	padding: .5em;
+}
+
+.form p {
+	font-size: 1em;
+}
+
+input{
+	padding: 5px;
+}
+
+.menu {
+	right: 20px;
+	top: 70px;
+	padding: 10px;
+	width: 200px;
+	height: 400px;
+	z-index: 10;
+}
+
+.options{
+	width: 160px;
+	margin: 20px 10px;
+
+}
+
+	.options input{
+		margin-bottom: 15px;
+	}
+
+	.options textarea{
+		height: 100px;
+
+	}
+
+.ui-autocomplete {
+    background-color: white;
+    width: 300px;
+    border: 1px solid #cfcfcf;
+    list-style-type: none;
+    padding-left: 0px;
+    -moz-opacity: 0.8;
+	filter:alpha(opacity=8);
+}
+
+	ul.ui-autocomplete li{
+	    background-color: white;
+	    width: 300px;
+	    border: 1px solid #cfcfcf;
+	    list-style-type: none;
+	    padding-left: 0px;
+	    -moz-opacity: 0.8;
+		filter:alpha(opacity=8);
+	}
+
+		ul.ui-autocomplete li:hover{
+		    background-color: #cce1ff;
+		    cursor: pointer;
+		}
+
+
