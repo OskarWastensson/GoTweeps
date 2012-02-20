@@ -1,5 +1,7 @@
 <?php
 
+/* This is message is a test of the github */
+
 // API class
 class TripAPI {
 	
