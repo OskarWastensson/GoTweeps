@@ -1,6 +1,5 @@
 <?php
 
-/* This is message is a test of the github */
 /* This is message is a test of the github I dont lik this message */
 
 // API class
