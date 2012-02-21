@@ -77,195 +77,65 @@ function initialize(){
 $(document).ready(function() { 
          
   initialize();
-          
-  $(function() {
-     
-      $("#address1").autocomplete({
-       
-      //This bit uses the geocoder to fetch address values
-      source: function(request, response) {
-        geocoder.geocode( {'address': request.term }, function(results, status) {
-          response($.map(results, function(item) {
-            return {
-              label:  item.formatted_address,
-              value: item.formatted_address,
-              latitude: item.geometry.location.lat(),
-              longitude: item.geometry.location.lng()
-            }
-          }));
-        })
-       
-
-      },
-      //This bit is executed upon selection of an address
-      select: function(event, ui) {
-        $("#latitude1").val(ui.item.latitude);
-        $("#longitude1").val(ui.item.longitude);
-<<<<<<< HEAD
-        depLocation = new google.maps.LatLng(ui.item.latitude, ui.item.longitude);
-        if(destLocation) {
-          directions(depLocation, destLocation, []);
-
-        } else {
-          departure.setPosition(depLocation);
-          map.setCenter(depLocation);
-=======
-
-        var location = new google.maps.LatLng(ui.item.latitude, ui.item.longitude);
-        marker = new google.maps.Marker({
-          map: map,
-          position: location,
-          draggable: true
-        })
-
-        marker.setPosition(location);
-        map.setCenter(location);
-
-
-      }
-    });
-  });
-  
-  //Add listener to marker for reverse geocoding
-  google.maps.event.addListener(marker, 'drag', function() {
-    geocoder.geocode({'latLng': marker.getPosition()}, function(results, status) {
-      if (status == google.maps.GeocoderStatus.OK) {
-        if (results[0]) {
-          $('#address1').val(results[0].formatted_address);
-          $('#latitude1').val(marker.getPosition().lat());
-          $('#longitude1').val(marker.getPosition().lng());
->>>>>>> Två markers i index
-        }
-      }
-    });
-  });
-
-
-    $(function() {
-     
-      $("#address2").autocomplete({
-       
-      //This bit uses the geocoder to fetch address values
-      source: function(request, response) {
-        geocoder.geocode( {'address': request.term }, function(results, status) {
-          response($.map(results, function(item) {
-            return {
-              label:  item.formatted_address,
-              value: item.formatted_address,
-              latitude: item.geometry.location.lat(),
-              longitude: item.geometry.location.lng()
-            }
-          }));
-        })
-       
-
-      },
-      //This bit is executed upon selection of an address
-      select: function(event, ui) {
-        $("#latitude2").val(ui.item.latitude);
-        $("#longitude2").val(ui.item.longitude);
-
-        var location = new google.maps.LatLng(ui.item.latitude, ui.item.longitude);
-        marker = new google.maps.Marker({
-          map: map,
-          position: location,
-          draggable: true
-        })
-
-        marker.setPosition(location);
-        map.setCenter(location);
-
-
-      }
-    });
-  });
-  
-  //Add listener to marker for reverse geocoding
-  google.maps.event.addListener(marker, 'drag', function() {
-    geocoder.geocode({'latLng': marker.getPosition()}, function(results, status) {
-      if (status == google.maps.GeocoderStatus.OK) {
-        if (results[0]) {
-          $('#address2').val(results[0].formatted_address);
-          $('#latitude2').val(marker.getPosition().lat());
-          $('#longitude2').val(marker.getPosition().lng());
-        }
-      }
-    });
-  });
-
-
-});
-
-/*
-$(function() {
-    $("#address1").autocomplete({
-      //This bit uses the geocoder to fetch address values
-      source: function(request, response) {
-        geocoder.geocode( {'address': request.term }, function(results, status) {
-          response($.map(results, function(item) {
-            return {
-              label:  item.formatted_address,
-              value: item.formatted_address,
-              latitude: item.geometry.location.lat(),
-              longitude: item.geometry.location.lng()
-            }
-          }));
-        })
-      },
-      //This bit is executed upon selection of an address
-      select: function(event, ui) {
-        $("#latitude").val(ui.item.latitude);
-        $("#longitude").val(ui.item.longitude);
-        var location = new google.maps.LatLng(ui.item.latitude, ui.item.longitude);
-        marker.setPosition(location);
-        map.setCenter(location);
-      }
-    });
-  });
-  
-  //Add listener to marker for reverse geocoding
-  google.maps.event.addListener(marker, 'drag', function() {
-    geocoder.geocode({'latLng': marker.getPosition()}, function(results, status) {
-      if (status == google.maps.GeocoderStatus.OK) {
-        if (results[0]) {
-          $('#address1').val(results[0].formatted_address);
-          $('#latitude').val(marker.getPosition().lat());
-          $('#longitude').val(marker.getPosition().lng());
-        }
-      }
-    });
-  });
-<<<<<<< HEAD
-
-  // Form posting event
-  $('#form').submit(function() {
-    // validate here fields here!
-    send = = {
-      "tag": $('#tag').value(),
-      "destination_lng": $('#longitude2').value(),
-      "destination_lat": $('#latitude2').value(),
-      "eta": $('#arrival').value(),
-      "km_cost": $('#price').value(),,
-      "message": $('#message').value(),,
-      "users": 22, // id of logged in user,
-      "legs":[
-          { "sequence": 1, // from directions function
-            "from_lng": $('#longitude1').value(),,
-            "from_lat": $('#latitude1').value(),,
-            "leg_distance": 3, // from directions function  
-            "user_to_destination": 3, // same value, from directions function
-            "passengers":[ {"users":22 } ] //id of logged in user
-        }]
-      }
     
-      $.post('index.php?/trips', send, function(data) {
-        // lock form
-        // send tweet
-        // display status messgae  
-      }, 'json');  
-  })
+
+  function InputLoc(inputField, latField, lngField){      
   
+    var marker = new google.maps.Marker({
+      map: map,
+      draggable: true
+    });
+
+    (function() {
+      inputField.autocomplete({
+        //This bit uses the geocoder to fetch address values
+        source: function(request, response) {
+          geocoder.geocode( {'address': request.term }, function(results, status) {
+            response($.map(results, function(item) {
+              return {
+                label:  item.formatted_address,
+                value: item.formatted_address,
+                latitude: item.geometry.location.lat(),
+                longitude: item.geometry.location.lng()
+              }
+            }));
+          })
+        },
+        //This bit is executed upon selection of an address
+        select: function(event, ui) {
+          latField.val(ui.item.latitude);
+          lngField.val(ui.item.longitude);
+          var location = new google.maps.LatLng(ui.item.latitude, ui.item.longitude);
+          marker.setPosition(location);
+          map.setCenter(location);
+        }
+      });
+    })();
+    
+    //Add listener to marker for reverse geocoding
+    google.maps.event.addListener(marker, 'drag', function() {
+      geocoder.geocode({'latLng': marker.getPosition()}, function(results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+          if (results[0]) {
+            inputField.val(results[0].formatted_address);
+            latField.val(marker.getPosition().lat());
+            lngField.val(marker.getPosition().lng());
+          }
+        }
+      });
+    });
+  };
+
+  var fromField = $("#address1"),
+      toField = $("#address2"),
+      fromLat = $("#latitude1"),
+      fromLng = $("#longitude1"),
+      toLat = $("#latitude2"),
+      toLng = $("#longitude2");
+
+
+  var fromField = new InputLoc(fromField, fromLat, fromLng);
+
+  var toField = new InputLoc(toField, toLat, toLng);
+   
 });
-=======
-*/
->>>>>>> Två markers i index
