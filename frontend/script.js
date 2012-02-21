@@ -10,7 +10,8 @@ var marker;
 var initialLocation;
 var browserSupportFlag = new Boolean();
     
-function initialize(){
+function initialize(fromObj){
+
 //MAP
   var sthlm = new google.maps.LatLng(59.300,18.114);
 
@@ -22,43 +23,57 @@ function initialize(){
         
   map = new google.maps.Map(document.getElementById("map_canvas"), options);
   
-  //W3C geolocation
-  if(navigator.geolocation){
-    browserSupportFlag = true;
-    navigator.geolocation.getCurrentPosition(function(position){
-      initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-      map.setCenter(initialLocation);
-    }, function(){
-      handleNoGeolocation(browserSupportFlag);
-    });
-    //Google Gears Location
-  }else if (google.gears){
-    browserSupportFlag = true;
-    var geo = google.gears.factory.create('beta.geolocation');
-    geo.getCurrentPosition(function(position){
-      initialLocation = new google.maps.LatLng(position.latitude, position.longitude);
-      map.setCenter(initialLocation);
-      console.log("BRAA2");
-    }, function(){
-      handleNoGeolocation(browserSupportFlag);
-    });
-    //Browser cant make it!
-  }else{
-    browserSupportFlag = false;
-    handleNoGeolocation(browserSupportFlag);
-  }
+  $('#myLoc').click(function(){
+    var fromField = $("#address1"),
+        fromLat = $("#latitude1"),
+        fromLng = $("#longitude1");
 
-  function handleNoGeolocation(errorFlag){
-    if(errorFlag == true){
-      alert("Geolocation fungerar inte!");
-      initialLocation = sthlm;
-    }else{
-      alert("Din webbläsare stödjer inte geolocation...");
-      initialLocation = sthlm;
-    }
-    map.setCenter(initialLocation);
-  }
+      //W3C geolocation
+      if(navigator.geolocation){
+        browserSupportFlag = true;
+        navigator.geolocation.getCurrentPosition(function(position){
+          initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+          map.setCenter(initialLocation);
+
+          fromLat.val(position.coords.latitude);
+          fromLng.val(position.coords.longitude);
+
+          fromObj.setPosition(fromField, fromLat, fromLng);
+
+
+        }, function(){
+          handleNoGeolocation(browserSupportFlag);
+        });
+        //Google Gears Location
+      }else if (google.gears){
+        browserSupportFlag = true;
+        var geo = google.gears.factory.create('beta.geolocation');
+        geo.getCurrentPosition(function(position){
+          initialLocation = new google.maps.LatLng(position.latitude, position.longitude);
+          map.setCenter(initialLocation);
+        }, function(){
+          handleNoGeolocation(browserSupportFlag);
+        });
+        //Browser cant make it!
+      }else{
+        browserSupportFlag = false;
+        handleNoGeolocation(browserSupportFlag);
+      }
+
+      function handleNoGeolocation(errorFlag){
+        if(errorFlag == true){
+          alert("Geolocation fungerar inte!");
+          initialLocation = sthlm;
+        }else{
+          alert("Din webbläsare stödjer inte geolocation...");
+          initialLocation = sthlm;
+        }
+        map.setCenter(initialLocation);
+      }
     
+  });
+  
+
   //GEOCODER
   geocoder = new google.maps.Geocoder();
 
@@ -66,25 +81,46 @@ function initialize(){
     map: map,
     position: initialLocation,
     draggable: true
-  });
-
-        
+  });  
 }
     
 
 
-
 $(document).ready(function() { 
          
-  initialize();
-    
+ 
+  var fromField = $("#address1"),
+      toField = $("#address2"),
+      fromLat = $("#latitude1"),
+      fromLng = $("#longitude1"),
+      toLat = $("#latitude2"),
+      toLng = $("#longitude2");
 
-  function InputLoc(inputField, latField, lngField){      
-  
+  var fromObj = new InputLoc(fromField, fromLat, fromLng);
+  var toObj = new InputLoc(toField, toLat, toLng);
+    
+  initialize(fromObj);
+
+});
+
+
+
+function InputLoc(inputField, latField, lngField){
+   
     var marker = new google.maps.Marker({
+      position: new google.maps.LatLng(59.3425027, 18.0288077),
       map: map,
       draggable: true
     });
+ 
+   
+    this.setPosition = function(fromField, fromLat, fromLng){
+      var location = new google.maps.LatLng(fromLat.val(), fromLng.val());
+      marker.setMap(map);
+      marker.setPosition(location);
+      marker.setVisible(true);
+          //map.setCenter(location);
+    };
 
     (function() {
       inputField.autocomplete({
@@ -106,6 +142,7 @@ $(document).ready(function() {
           latField.val(ui.item.latitude);
           lngField.val(ui.item.longitude);
           var location = new google.maps.LatLng(ui.item.latitude, ui.item.longitude);
+          marker.setMap(map);
           marker.setPosition(location);
           map.setCenter(location);
         }
@@ -124,18 +161,4 @@ $(document).ready(function() {
         }
       });
     });
-  };
-
-  var fromField = $("#address1"),
-      toField = $("#address2"),
-      fromLat = $("#latitude1"),
-      fromLng = $("#longitude1"),
-      toLat = $("#latitude2"),
-      toLng = $("#longitude2");
-
-
-  var fromField = new InputLoc(fromField, fromLat, fromLng);
-
-  var toField = new InputLoc(toField, toLat, toLng);
-   
-});
+};
