@@ -4,7 +4,20 @@
 ></script>
 <script>
 $( function() {
-	var input = {"tag":"","destination_lng":"","destination_lat":"","eta":"0000-00-00 00:00:00","km_cost":"1","message":"Testmeddalande","users":"1","owner":"@oskarwastensson","legs":[{"trips":"1","id":"1","sequence":"1","from_lng":"","from_lat":"","to_lng":"","to_lat":"","leg_distance":"10","user_to_destination":"15","share_fee":"7.0000","pick_up_fee":"3","passengers":[{"users":"1","legs":"1"}]},{"trips":"1","id":"2","sequence":"2","from_lng":"","from_lat":"","to_lng":"","to_lat":"","leg_distance":"5","user_to_destination":"8","share_fee":"1.5000","pick_up_fee":"2","passengers":[{"users":"1","legs":"2"},{"users":"2","legs":"2"}]},{"trips":"1","id":"3","sequence":"3","from_lng":"","from_lat":"","to_lng":"","to_lat":"","leg_distance":"5","user_to_destination":"5","share_fee":"1.6667","pick_up_fee":"0","passengers":[{"users":"1","legs":"3"},{"users":"2","legs":"3"},{"users":"3","legs":"3"}]}]};
+	var input = {"tag":"","destination_lng":"","destination_lat":"","eta":"0000-00-00 00:00:00","km_cost":"1","message":"Testmeddalande","users":"1","owner":"@oskarwastensson","legs":[
+			{"trips":"1","id":"1","sequence":"1","from_lng":"","from_lat":"","to_lng":"","to_lat":"","leg_distance":"10","user_to_destination":"15","share_fee":"7.0000","pick_up_fee":"3","passengers":[
+					{"users":"1","legs":"1"}
+				]},
+			{"trips":"1","id":"2","sequence":"2","from_lng":"","from_lat":"","to_lng":"","to_lat":"","leg_distance":"5","user_to_destination":"8","share_fee":"1.5000","pick_up_fee":"2","passengers":[
+					{"users":"1","legs":"2"},
+					{"users":"2","legs":"2"}
+				]},
+			{"trips":"1","id":"3","sequence":"3","from_lng":"","from_lat":"","to_lng":"","to_lat":"","leg_distance":"5","user_to_destination":"5","share_fee":"1.6667","pick_up_fee":"0","passengers":[
+					{"users":"1","legs":"3"},
+					{"users":"2","legs":"3"},
+					{"users":"3","legs":"3"}
+				]}
+			]};
 
 	$.post('index.php?/trips', input, function(data) {
 		console.log(data);

@@ -5,9 +5,9 @@ Class Passengers extends Resource {
 		$this->params = array(
 			'table' => 'passengers',
 			'view' => 'passengers',
-			'view_fields' => 'users, legs',
-			'put_fields' => 'id, users, legs',
-			'post_fields' =>	'users, legs',
+			'view_fields' => 'id, users, legs, confirmed_by_driver, confirmed_by_passenger',
+			'put_fields' => 'id, users, legs, confirmed_by_driver, confirmed_by_passenger',
+			'post_fields' =>	'users, legs, confirmed_by_driver, confirmed_by_passenger',
 		);
 	}
 }
