@@ -79,6 +79,8 @@ function initialize(){
     map: map,
     draggable: true
   });
+          console.log(destination);
+
         
 }
   
@@ -86,11 +88,9 @@ function directions(destination, origin, locations) {
     var directionsService = new google.maps.DirectionsService();
 
     var waypoints = [];
-    if(locations && locations.length > 0) {
-      $.each(locations, function(i, location) {
-        waypoints.push({location: location, stopover: true});
-      }); 
-    }
+    $.each(locations, function(i, location) {
+      waypoints.push({location: location, stopover: true});
+    }); 
 
     var request = {
         origin: origin ,
@@ -99,16 +99,9 @@ function directions(destination, origin, locations) {
         travelMode: google.maps.DirectionsTravelMode.DRIVING,
         optimizeWaypoints: true,
     };
-
-    console.log(request);
-
     console.log('DirectionsService:');
     directionsService.route(request, function(response, status) {
-      console.log(status);
-      console.log(response);
-
       if (status == google.maps.DirectionsStatus.OK) {
-      
         directionsDisplay.setDirections(response);
         var data = update_legs(response.routes[0], response.cg.destination);
         console.log(response);
@@ -126,14 +119,6 @@ function directions(destination, origin, locations) {
 $(document).ready(function() { 
          
   initialize();
-  
-  var a = google.maps.LatLng(59.4,17.98);
-  var b = google.maps.LatLng(59,18);
-  
-  console.log(a);
-  console.log(b);
-
-  directions(a, b);
           
   $(function() {
     $(".address").autocomplete({
@@ -189,41 +174,32 @@ $(document).ready(function() {
     });
   });
 
- 
-
   // Form posting event
-  $('.options').submit(function(event) {
-    
-    event.preventDefault();
-    // validate fields here!
-    send = {
-      "tag": $('#tag').value,
-      "destination_lng": $('#longitude2').value,
-      "destination_lat": $('#latitude2').value,
-      "eta": $('#arrival').value,
-      "km_cost": $('#price').value,
-      "message": $('#message').value,
+  $('#form').submit(function() {
+    // validate here fields here!
+    send = = {
+      "tag": $('#tag').value(),
+      "destination_lng": $('#longitude2').value(),
+      "destination_lat": $('#latitude2').value(),
+      "eta": $('#arrival').value(),
+      "km_cost": $('#price').value(),,
+      "message": $('#message').value(),,
+      "users": 22, // id of logged in user,
       "legs":[
-          { "sequence": directions.data[0].sequence, 
-            "from_lng": $('#longitude1').value,
-            "from_lat": $('#latitude1').value,
-            "leg_distance": directions.data[0].leg_distance,  
-            "user_to_destination": directions.data[0].leg_distance, 
-            "passengers":[ {} ] // id of logged in user i set automically if users is missing
+          { "sequence": 1, // from directions function
+            "from_lng": $('#longitude1').value(),,
+            "from_lat": $('#latitude1').value(),,
+            "leg_distance": 3, // from directions function  
+            "user_to_destination": 3, // same value, from directions function
+            "passengers":[ {"users":22 } ] //id of logged in user
         }]
-    };
-      
-    console.log("Form submits:");
-    console.log(send);  
-
-      /*
+      }
+    
       $.post('index.php?/trips', send, function(data) {
         // lock form
         // send tweet
         // display status messgae  
-      }, 'json'); */ 
-  });
-
-
+      }, 'json');  
+  })
   
 });
