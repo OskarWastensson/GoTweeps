@@ -142,7 +142,7 @@ $(document).ready(function() {
         depLocation = new google.maps.LatLng(ui.item.latitude, ui.item.longitude);
         if(destLocation) {
           directions(depLocation, destLocation, []);
-          
+
         } else {
           departure.setPosition(depLocation);
           map.setCenter(depLocation);
@@ -173,5 +173,33 @@ $(document).ready(function() {
       }
     });
   });
+
+  // Form posting event
+  $('#form').submit(function() {
+    // validate here fields here!
+    send = = {
+      "tag": $('#tag').value(),
+      "destination_lng": $('#longitude2').value(),
+      "destination_lat": $('#latitude2').value(),
+      "eta": $('#arrival').value(),
+      "km_cost": $('#price').value(),,
+      "message": $('#message').value(),,
+      "users": 22, // id of logged in user,
+      "legs":[
+          { "sequence": 1, // from directions function
+            "from_lng": $('#longitude1').value(),,
+            "from_lat": $('#latitude1').value(),,
+            "leg_distance": 3, // from directions function  
+            "user_to_destination": 3, // same value, from directions function
+            "passengers":[ {"users":22 } ] //id of logged in user
+        }]
+      }
+    
+      $.post('index.php?/trips', send, function(data) {
+        // lock form
+        // send tweet
+        // display status messgae  
+      }, 'json');  
+  })
   
 });
