@@ -10,7 +10,7 @@ var marker;
 var initialLocation;
 var browserSupportFlag = new Boolean();
     
-function initialize(fromObj){
+function initialize(fromObj, toObj){
 
 //MAP
   var sthlm = new google.maps.LatLng(59.300,18.114);
@@ -98,44 +98,15 @@ $(document).ready(function() {
 
   var fromObj = new InputLoc(fromField, fromLat, fromLng);
   var toObj = new InputLoc(toField, toLat, toLng);
-  var directionsObj = new Directions();
     
-  initialize(fromObj);
+  initialize(fromObj, toObj);
+
+
+
 
 });
 
-// Form posting event
-$('.options').submit(function(event) {
-  leg = directions.legs[0];
-  event.preventDefault();
-  // validate fields here!
-  send = {
-    "tag": $('#tag').value,
-    "destination_lng": $('#longitude2').value,
-    "destination_lat": $('#latitude2').value,
-    "eta": $('#arrival').value,
-    "km_cost": $('#price').value,
-    "message": $('#message').value,
-    "legs":[
-        { "sequence": legs.sequence, 
-          "from_lng": $('#longitude1').value,
-          "from_lat": $('#latitude1').value,
-          "leg_distance": leg.leg_distance,  
-          "user_to_destination": leg.leg_distance, 
-          "passengers":[ {} ] // id of logged in user i set automically if users is missing
-      }]
-  };
-    
-  console.log("Form submits:");
-  console.log(send);  
 
-    /*
-    $.post('index.php?/trips', send, function(data) {
-      // lock form
-      // send tweet
-      // display status messgae  
-    }, 'json'); */ 
-});
 
 
 
@@ -146,6 +117,8 @@ function InputLoc(inputField, latField, lngField){
       map: map,
       draggable: true
     });
+
+    this.marker = marker;
  
    
     this.setPosition = function(fromField, fromLat, fromLng){
@@ -154,6 +127,7 @@ function InputLoc(inputField, latField, lngField){
       marker.setPosition(location);
       marker.setVisible(true);
       directions.refresh();
+
           //map.setCenter(location);
     };
 
@@ -180,6 +154,7 @@ function InputLoc(inputField, latField, lngField){
           marker.setMap(map);
           marker.setPosition(location);
           map.setCenter(location);
+          directions.refresh();
 
         }
       });
@@ -193,8 +168,45 @@ function InputLoc(inputField, latField, lngField){
             inputField.val(results[0].formatted_address);
             latField.val(marker.getPosition().lat());
             lngField.val(marker.getPosition().lng());
+            directions.refresh();
           }
         }
       });
     });
 };
+
+
+// Form posting event
+$('#options').submit(function() {
+  alert("#");
+  event.preventDefault();
+  leg = directions.legs[0];
+  // validate fields here!
+  send = {
+    "tag": $('#tag').value,
+    "destination_lng": $('#longitude2').value,
+    "destination_lat": $('#latitude2').value,
+    "eta": $('#arrival').value,
+    "km_cost": $('#price').value,
+    "message": $('#message').value,
+    "legs":[
+        { "sequence": leg.sequence, 
+          "from_lng": $('#longitude1').value,
+          "from_lat": $('#latitude1').value,
+          "leg_distance": leg.leg_distance,  
+          "user_to_destination": leg.leg_distance, 
+          "passengers":[ {} ] // id of logged in user i set automically if users is missing
+      }]
+  };
+    
+  console.log("Form submits:");
+  console.log(send);  
+
+    /*
+    $.post('index.php?/trips', send, function(data) {
+      // lock form
+      // send tweet
+      // display status messgae  
+    }, 'json'); */
+    return false; 
+});

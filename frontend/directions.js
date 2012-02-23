@@ -1,71 +1,72 @@
 
 function Directions(mapObj, destObj, origObj, wayPObjs) {
-	var directionsDisplay = new google.maps.DirectionsRenderer();
-  	var directionsService = new google.maps.DirectionsService();
-  	var destination = null;
-  	var origin = null;
-  	var wayPoints = [];
-  	var legs = [];
+	directionsDisplay = new google.maps.DirectionsRenderer();
+  	directionsService = new google.maps.DirectionsService();
+  	destMarker = destObj.marker;
+  	origMarker = origObj.marker;
+  	waypoints = [];
+  	legs = [];
 
     directionsDisplay.setMap(mapObj);
 
-	destination = destObj;
-	origin = origObj;   
-
-	if(wayPObjs && wayPObjs.length()) {
-		$.each(wayPObjs, function(i, wayPObj)) {
-			wayPoints.push({location: wayPObj, stopover: true});
+	if(wayPObjs && wayPObjs.length) {
+		$.each(wayPObjs, function(i, wayPObj) {
+			this.wayPoints.push({location: wayPObj, stopover: true});
 		});
 	}
 	
-    this.addWayPoint = function(waypoint) {
+	this.addWayPoint = function(waypoint) {
     	this.waypoint.push({location: location, stopover: true});
-    	this.execute();
+    	this.refresh();
     }
     
-    this.execute = function() {
-	   
+    this.refresh = function() {
+	  	destination = destMarker.getPosition();
+  		origin = origMarker.getPosition();
+ 
+		/*
+		   		if(!this.destination || !this.origin) {
+			console.log("No directions");
+			console.log(this);
+     		return false;
+   		}*/
+
 	    var request = {
-	        origin: this.origin ,
-	        destination: this.destination,
-	        waypoints: this.waypoints, 
+	        origin: origin ,
+	        destination: destination,
+	        waypoints: waypoints, 
 	        travelMode: google.maps.DirectionsTravelMode.DRIVING,
 	        optimizeWaypoints: true,
 	    };
 
-	    console.log(request);
 
-	    console.log('DirectionsService:');
 	    directionsService.route(request, function(response, status) {
-	      console.log(status);
-	      console.log(response);
-
 	      if (status == google.maps.DirectionsStatus.OK) {
-	      
-	        directionsDisplay.setDirections(response);
-	        this.legs = this.updateLegs(response.routes[0], response.cg.destination);
-	        console.log(response);
+	      	directionsDisplay.setDirections(response);
+	        legs = updateLegs(response.routes[0]);
 	      } else {
 	        // bad request to directions!
-	        console.log(status);
 	      }
 	    });
+
+	    console.log(legs);
 	}
 	
-	this.updateLegs = function(response, destination) {
+	updateLegs = function(response) {
 		data = [];
 		$.each(response.legs, function(i, leg) {
 			var leg_data = {};
 			leg_data.sequence = i;
 			leg_data.leg_distance = leg.distance.value;
-			leg_data.location_lng = leg.start_location.Ra;
-			leg_data.location_lat = leg.start_location.Qa;
+			console.log(leg.start_location);
+			leg_data.location_lng = leg.start_location.lng();
+			leg_data.location_lat = leg.start_location.lat();
 			data.push(leg_data);	
 		});
 		return data;
 	}
 }    
-  }
+  
 
 
 
