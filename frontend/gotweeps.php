@@ -13,18 +13,20 @@
   <body>
     <form class='form'>
       <p>Åka från
-      <input id='address' class="address" name='location' type='text' />
+      <input id='address1' class="address" name='location' type='text' />
+      <input type="button" id="myLoc">
+      <input id="latitude1" type="hidden"/>
+      <input id="longitude1" type="hidden"/>
       till
-      <input class="address" type='text' name='destination' />
+      <input id='address2' class="address" type='text' name='destination' />
+      <input id="latitude2" type="hidden"/>
+      <input id="longitude2" type="hidden"/>
       </p>
     </form>
 
     <div class='menu'>
       <form class='options'>
-        <input id="latitude1" type="hidden"/>
-        <input id="longitude1" type="hidden"/>
-        <input id="latitude2" type="hidden"/>
-        <input id="longitude2" type="hidden"/>
+        
         <label for="tag">Event</label>
         <input type='text' name='tag' id="tag" />
         <label for="arrival">Beräknad ankomsttid</label>
