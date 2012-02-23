@@ -22,7 +22,8 @@ function initialize(fromObj){
   };
         
   map = new google.maps.Map(document.getElementById("map_canvas"), options);
-  
+  directions = new Directions(map, fromObj, toObj, []);
+
   $('#myLoc').click(function(){
     var fromField = $("#address1"),
         fromLat = $("#latitude1"),
@@ -39,7 +40,6 @@ function initialize(fromObj){
           fromLng.val(position.coords.longitude);
 
           fromObj.setPosition(fromField, fromLat, fromLng);
-
 
         }, function(){
           handleNoGeolocation(browserSupportFlag);
@@ -98,9 +98,43 @@ $(document).ready(function() {
 
   var fromObj = new InputLoc(fromField, fromLat, fromLng);
   var toObj = new InputLoc(toField, toLat, toLng);
+  var directionsObj = new Directions();
     
   initialize(fromObj);
 
+});
+
+// Form posting event
+$('.options').submit(function(event) {
+  leg = directions.legs[0];
+  event.preventDefault();
+  // validate fields here!
+  send = {
+    "tag": $('#tag').value,
+    "destination_lng": $('#longitude2').value,
+    "destination_lat": $('#latitude2').value,
+    "eta": $('#arrival').value,
+    "km_cost": $('#price').value,
+    "message": $('#message').value,
+    "legs":[
+        { "sequence": legs.sequence, 
+          "from_lng": $('#longitude1').value,
+          "from_lat": $('#latitude1').value,
+          "leg_distance": leg.leg_distance,  
+          "user_to_destination": leg.leg_distance, 
+          "passengers":[ {} ] // id of logged in user i set automically if users is missing
+      }]
+  };
+    
+  console.log("Form submits:");
+  console.log(send);  
+
+    /*
+    $.post('index.php?/trips', send, function(data) {
+      // lock form
+      // send tweet
+      // display status messgae  
+    }, 'json'); */ 
 });
 
 
@@ -119,6 +153,7 @@ function InputLoc(inputField, latField, lngField){
       marker.setMap(map);
       marker.setPosition(location);
       marker.setVisible(true);
+      directions.refresh();
           //map.setCenter(location);
     };
 
@@ -145,6 +180,7 @@ function InputLoc(inputField, latField, lngField){
           marker.setMap(map);
           marker.setPosition(location);
           map.setCenter(location);
+
         }
       });
     })();
