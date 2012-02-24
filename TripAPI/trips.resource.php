@@ -5,9 +5,9 @@ Class Trips extends Resource {
 		$this->params = array(
 			'table' => 'trips',
 			'view' => 'trips_view',
-			'view_fields' => 'id, tag, destination_lng, destination_lat, eta, km_cost, message, users, owner',
-			'put_fields' => 'id, tag, destination_lng, destination_lat, eta, km_cost, message, users',
-			'post_fields' =>	'tag, destination_lng, destination_lat, eta, km_cost, message, users' ,
+			'view_fields' => 'id, tag, destination_lng, destination_lat, eta, km_cost, message, users, owner, confirmed',
+			'put_fields' => 'id, tag, destination_lng, destination_lat, eta, km_cost, message, users, confirmed',
+			'post_fields' =>	'tag, destination_lng, destination_lat, eta, km_cost, message, users, confirmed' ,
 			'child_resources' => 'legs'
 		);
 	}
@@ -40,7 +40,8 @@ SELECT
 	trips.km_cost AS km_cost, 
 	trips.message AS message, 
 	trips.users AS users, 
-	users.name AS owner 
+	users.name AS owner,
+	trips.confirmed AS confirmed
 FROM trips 
 	JOIN users ON users.id = trips.users 
 
