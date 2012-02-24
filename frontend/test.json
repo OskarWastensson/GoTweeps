@@ -21,7 +21,15 @@
 					"from_lat":"59.2426134",
 					"share_fee":"7.0000",
 					"pick_up_fee":"3",
-					"name":"@oskarwastensson"
+					"name":"@oskarwastensson",
+					"passengers": [
+									{
+									"users":"1",
+									"legs":"",
+									"confirmed_by_driver": "1",
+									"confirmed_by_passenger":"1"
+									}
+									] 
 				},
 				{
 					"trips":"1",
@@ -31,7 +39,21 @@
 					"from_lat":"59.4426134",
 					"share_fee":"1.5000",
 					"pick_up_fee":"2",
-					"name":"@testpilot1"
+					"name":"@testpilot1",
+					"passengers": [
+									{
+									"users":"1",
+									"legs":"",
+									"confirmed_by_driver": "1",
+									"confirmed_by_passenger":"1"
+									},
+									{
+									"users":"2",
+									"legs":"",
+									"confirmed_by_driver": "0",
+									"confirmed_by_passenger":"0"
+									}
+									] 
 				},
 				{
 					"trips":"1",
@@ -41,7 +63,28 @@
 					"from_lat":"59.1426134",
 					"share_fee":"1.6667",
 					"pick_up_fee":"0",
-					"name":"@testpilot2"
+					"name":"@testpilot2",
+					"passengers": [
+									{
+									"users":"1",
+									"legs":"",
+									"confirmed_by_driver": "1",
+									"confirmed_by_passenger":"1"
+									},
+									{
+									"users":"2",
+									"legs":"",
+									"confirmed_by_driver": "0",
+									"confirmed_by_passenger":"0"
+									},
+									{
+									"users":"3",
+									"legs":"",
+									"confirmed_by_driver": "0",
+									"confirmed_by_passenger":"0"
+									}
+								] 
 				}
 			]
+
 }
