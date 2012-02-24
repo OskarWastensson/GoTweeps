@@ -24,6 +24,37 @@ function initialize(fromObj, toObj){
   map = new google.maps.Map(document.getElementById("map_canvas"), options);
   directions = new Directions(map, fromObj, toObj, []);
 
+// Form posting event
+  $('#options').submit(function(event) {
+
+    event.preventDefault();
+    leg = directions.legs[0];
+
+    // validate fields here!
+    send = {
+      "tag": $('#tag').val(),
+      "destination_lng": $('#longitude2').val(),
+      "destination_lat": $('#latitude2').val(),
+      "eta": $('#arrival').val(),
+      "km_cost": $('#price').val(),
+      "message": $('#message').val(),
+      "legs":[
+          { "sequence": leg.sequence, 
+            "from_lng": $('#longitude1').val(),
+            "from_lat": $('#latitude1').val(),
+            "leg_distance": leg.leg_distance,  
+            "user_to_destination": leg.leg_distance, 
+            "passengers": [ {"foo": 'bar'} ] // id of logged in user i set automically if users is missing
+        }]
+    };
+
+      $.post('http://localhost/gotweeps/tripAPI/?/trips', send, function(data) {
+        id = data[0].id;
+        window.location.href = "confirm.php?trip=" + id;
+  
+      }, 'json'); 
+  });
+
   $('#myLoc').click(function(){
     var fromField = $("#address1"),
         fromLat = $("#latitude1"),
@@ -101,9 +132,7 @@ $(document).ready(function() {
     
   initialize(fromObj, toObj);
 
-
-
-
+  
 });
 
 
@@ -176,37 +205,3 @@ function InputLoc(inputField, latField, lngField){
 };
 
 
-// Form posting event
-$('#options').submit(function() {
-  alert("#");
-  event.preventDefault();
-  leg = directions.legs[0];
-  // validate fields here!
-  send = {
-    "tag": $('#tag').value,
-    "destination_lng": $('#longitude2').value,
-    "destination_lat": $('#latitude2').value,
-    "eta": $('#arrival').value,
-    "km_cost": $('#price').value,
-    "message": $('#message').value,
-    "legs":[
-        { "sequence": leg.sequence, 
-          "from_lng": $('#longitude1').value,
-          "from_lat": $('#latitude1').value,
-          "leg_distance": leg.leg_distance,  
-          "user_to_destination": leg.leg_distance, 
-          "passengers":[ {} ] // id of logged in user i set automically if users is missing
-      }]
-  };
-    
-  console.log("Form submits:");
-  console.log(send);  
-
-    /*
-    $.post('index.php?/trips', send, function(data) {
-      // lock form
-      // send tweet
-      // display status messgae  
-    }, 'json'); */
-    return false; 
-});

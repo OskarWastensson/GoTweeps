@@ -39,7 +39,7 @@
         <input id="price" name='price' type='digits' />
         <label for="message">Meddelande till medresenärer</label>
         <textarea id="message" name='message' type='text'></textarea>
-        <input id="submit" type="submit" value="Skicka">
+        <input id="submit" type="submit" value="Skicka" />
       </form>
     </div>
 

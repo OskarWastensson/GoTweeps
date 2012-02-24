@@ -22,8 +22,8 @@ Class Legs extends Resource {
 		next_legs.user_to_destination AS distance_after_leg,
 		this_legs.user_to_destination AS distance_before_leg,
 		COUNT(DISTINCT passengers_users.id) AS number_of_members,
-		trips.km_cost * IF(ISNULL(next_legs.user_to_destination), this_legs.user_to_destination, this_legs.user_to_destination -next_legs.user_to_destination) / COUNT(DISTINCT passengers_users.id) AS share_fee,
-		trips.km_cost * (this_legs.leg_distance - IF(ISNULL(next_legs.user_to_destination), this_legs.user_to_destination, this_legs.user_to_destination - next_legs.user_to_destination)) AS pick_up_fee
+		trips.km_cost * 0.001 * IF(ISNULL(next_legs.user_to_destination), this_legs.user_to_destination, this_legs.user_to_destination -next_legs.user_to_destination) / COUNT(DISTINCT passengers_users.id) AS share_fee,
+		trips.km_cost * 0.001 * (this_legs.leg_distance - IF(ISNULL(next_legs.user_to_destination), this_legs.user_to_destination, this_legs.user_to_destination - next_legs.user_to_destination)) AS pick_up_fee
 	FROM 
 		legs AS this_legs 
 			LEFT JOIN legs AS next_legs

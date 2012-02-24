@@ -19,8 +19,9 @@ abstract class Resource{
 					$id = $this->post($data);
 					if($parent) {
 						$this->attach($id, $parent, $pid);
-					}
-					$this->get($id);
+					} else {
+						$this->get($id);
+					} 
 				break;
 			case 'PUT':
 					if($data) {
@@ -28,8 +29,9 @@ abstract class Resource{
 					}
 					if($parent) {
 						$this->attach($id, $parent, $pid);
+					} else {
+						$this->get($id);
 					}
-					$this->get($id);
 				break;
 			case 'DELETE':
 					if($parent) {
@@ -45,6 +47,7 @@ abstract class Resource{
 	}
 
 	function get($id, $parent = null, $pid = null){
+		
 		// Create Where clause
 		$where_sql = "";
 		if($id) {
@@ -72,7 +75,6 @@ abstract class Resource{
 
 				if(count($resource)) {
 					$this->data = $resource;
-					
 				} else {
 					// $this->data = error(EMPTY_SET);
 				}
@@ -103,7 +105,7 @@ abstract class Resource{
 		}
 	}
  
-	function post($data){
+	function post($data) {
 		$fields = explode(', ',$this->params['post_fields']);
 		
 		$update_fields = array();

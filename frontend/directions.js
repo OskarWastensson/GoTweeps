@@ -4,9 +4,9 @@ function Directions(mapObj, destObj, origObj, wayPObjs) {
   	directionsService = new google.maps.DirectionsService();
   	destMarker = destObj.marker;
   	origMarker = origObj.marker;
-  	waypoints = [];
-  	legs = [];
-
+  	this.waypoints = [];
+  	this.legs = [];
+  	
     directionsDisplay.setMap(mapObj);
 
 	if(wayPObjs && wayPObjs.length) {
@@ -34,7 +34,7 @@ function Directions(mapObj, destObj, origObj, wayPObjs) {
 	    var request = {
 	        origin: origin ,
 	        destination: destination,
-	        waypoints: waypoints, 
+	        waypoints: this.waypoints, 
 	        travelMode: google.maps.DirectionsTravelMode.DRIVING,
 	        optimizeWaypoints: true,
 	    };
@@ -43,13 +43,12 @@ function Directions(mapObj, destObj, origObj, wayPObjs) {
 	    directionsService.route(request, function(response, status) {
 	      if (status == google.maps.DirectionsStatus.OK) {
 	      	directionsDisplay.setDirections(response);
-	        legs = updateLegs(response.routes[0]);
+	        directions.legs = updateLegs(response.routes[0]);
 	      } else {
 	        // bad request to directions!
 	      }
 	    });
 
-	    console.log(legs);
 	}
 	
 	updateLegs = function(response) {
