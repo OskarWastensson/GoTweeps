@@ -1,0 +1,18 @@
+html {
+	background: #e5e3df;
+}
+#confirmWrap {
+	background: #fff;
+	border-radius: 15px;
+	opacity: 0.9;
+	-moz-opacity: 0.9;
+	filter:alpha(opacity=9);
+	width: 600px;
+	padding: 10px 20px;
+	margin: 60px auto 0px;
+	border: 1px solid #d1d0cd;
+}
+#confirmWrap h1 {
+	font-size: 22px;
+	margin: 10px 0px;
+}
