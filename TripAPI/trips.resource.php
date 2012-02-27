@@ -7,8 +7,8 @@ Class Trips extends Resource {
 			'view' => 'trips_view',
 			'view_fields' => 'id, tag, destination_lng, destination_lat, eta, km_cost, message, users, owner, confirmed',
 			'put_fields' => 'id, tag, destination_lng, destination_lat, eta, km_cost, message, users, confirmed',
-			'post_fields' =>	'tag, destination_lng, destination_lat, eta, km_cost, message, users, confirmed' ,
-			'child_resources' => 'legs'
+			'post_fields' =>	'tag, destination_lng, destination_lat, eta, km_cost, message, users, confirmed',
+			'child_resources' => 'passengers'
 		);
 	}
 

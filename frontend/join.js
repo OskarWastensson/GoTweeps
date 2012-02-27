@@ -9,47 +9,124 @@ var map;
 var marker;
 var initialLocation;
 var browserSupportFlag = new Boolean();
+
+//GEOCODER
+  geocoder = new google.maps.Geocoder();
+  marker = new google.maps.Marker({
+    map: map,
+    position: initialLocation,
+    draggable: true
+  });   
+
+$(document).ready(function() { 
+  initialize();
+});
     
 function initialize(){
-//MAP
-  var sthlm = new google.maps.LatLng(59.300,18.114);
+  //  Fetch get variable id
+  url_vars = getUrlVars();
+  id = url_vars['trip'];
 
-  var options = {
-    zoom: 12,
-    center: sthlm,
-    mapTypeId: google.maps.MapTypeId.ROADMAP
-  };
+  // Make JSON request for trip data
+  $.getJSON('http://localhost/gotweeps/TripAPI/?/trips/' + id, function(data){
+
+    var trip = data["0"];
+
+    var form = $("#options");
+    //data from JSON
+    $("#event").text(trip.tag);
+    $("#arrival").text(trip.eta);
+    $("#price").text(trip.km_cost);
+    $("#message").text(trip.message);
+    
+    //destination location
+    var destinationLat = trip.destination_lat;
+    var destinationLng = trip.destination_lng;
+
+    //MAP
+    var options = {
+      zoom: 12,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
         
-  map = new google.maps.Map(document.getElementById("map_canvas"), options);
+    map = new google.maps.Map(document.getElementById("map_canvas"), options);
   
-  //W3C geolocation
-  if(navigator.geolocation){
-    browserSupportFlag = true;
-    navigator.geolocation.getCurrentPosition(function(position){
-      initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-      map.setCenter(initialLocation);
-    }, function(){
-      handleNoGeolocation(browserSupportFlag);
+    // Infowindow object for popup descriptions
+    var infowindow = new google.maps.InfoWindow({
+        content: "holding"
     });
-    //Google Gears Location
-  }else if (google.gears){
-    browserSupportFlag = true;
-    var geo = google.gears.factory.create('beta.geolocation');
-    geo.getCurrentPosition(function(position){
-      initialLocation = new google.maps.LatLng(position.latitude, position.longitude);
-      map.setCenter(initialLocation);
-      console.log("BRAA2");
-    }, function(){
-      handleNoGeolocation(browserSupportFlag);
-    });
-    //Browser cant make it!
-  }else{
-    browserSupportFlag = false;
-    handleNoGeolocation(browserSupportFlag);
-  }
 
+    //Marker of event
+    destination = {};
+    destination.marker = new google.maps.Marker({
+        map: map,
+        position: new google.maps.LatLng(destinationLat,destinationLng),
+        title: trip.tag
+    });
+
+    google.maps.event.addListener(destination.marker, 'click', function () {
+      infowindow.setContent(this.title);
+      infowindow.open(map, this);
+    });
+
+    var waypoints = [];
+    $.each(trip.passengers, function(i, passenger) {
+  
+      point = {};
+      point.marker = new google.maps.Marker({
+        map: map,
+        position: new google.maps.LatLng(passenger.lat, passenger.lng),
+        title: passenger.name
+      });
+
+      google.maps.event.addListener(point.marker, 'click', function () {
+        infowindow.setContent(this.title);
+        infowindow.open(map, this);
+      });
+
+      waypoints.push(point);
+    });      
+   
+    //W3C geolocation
+    if(navigator.geolocation){
+      browserSupportFlag = true;
+      navigator.geolocation.getCurrentPosition(function(position){
+        initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+        map.setCenter(initialLocation);
+      }, function(){
+        handleNoGeolocation(browserSupportFlag);
+      });
+    //Google Gears Location
+    } else if (google.gears){
+      browserSupportFlag = true;
+      var geo = google.gears.factory.create('beta.geolocation');
+      geo.getCurrentPosition(function(position){
+       initialLocation = new google.maps.LatLng(position.latitude, position.longitude);
+       map.setCenter(initialLocation);
+       console.log("BRAA2");
+      }, function(){
+       handleNoGeolocation(browserSupportFlag);
+      });
+      //Browser cant make it!
+    } else {
+      browserSupportFlag = false;
+      handleNoGeolocation(browserSupportFlag);
+    }
+    
+    // Directions object
+    origin = waypoints.shift();
+    directions = new Directions(map, destination, origin, waypoints);
+
+    var newPassenger = new InputLoc($('#address'), $('#latitude'), $('#longitude'));  
+    directions.addWayPoint(newPassenger);
+    directions.refresh();
+
+  });  
+   
   function handleNoGeolocation(errorFlag){
-    if(errorFlag == true){
+   var sthlm = new google.maps.LatLng(59.300,18.114);
+ 
+     if(errorFlag == true){
       alert("Geolocation fungerar inte!");
       initialLocation = sthlm;
     }else{
@@ -58,63 +135,19 @@ function initialize(){
     }
     map.setCenter(initialLocation);
   }
-    
-  //GEOCODER
-  geocoder = new google.maps.Geocoder();
-  marker = new google.maps.Marker({
-    map: map,
-    position: initialLocation,
-    draggable: true
-  });
-
-        
 }
     
 
+function getUrlVars()
+{
+    var vars = [], hash;
+    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+    for(var i = 0; i < hashes.length; i++)
+    {
+        hash = hashes[i].split('=');
+        vars.push(hash[0]);
+        vars[hash[0]] = hash[1];
+    }
+    return vars;
+}
 
-
-$(document).ready(function() { 
-         
-  initialize();
-          
-  $(function() {
-    $("#address").autocomplete({
-      //This bit uses the geocoder to fetch address values
-      source: function(request, response) {
-        geocoder.geocode( {'address': request.term }, function(results, status) {
-          response($.map(results, function(item) {
-            return {
-              label:  item.formatted_address,
-              value: item.formatted_address,
-              latitude: item.geometry.location.lat(),
-              longitude: item.geometry.location.lng()
-            }
-          }));
-        })
-      },
-      //This bit is executed upon selection of an address
-      select: function(event, ui) {
-        $("#latitude").val(ui.item.latitude);
-        $("#longitude").val(ui.item.longitude);
-        var location = new google.maps.LatLng(ui.item.latitude, ui.item.longitude);
-        marker.setPosition(location);
-        map.setCenter(location);
-      }
-    });
-  });
-  
-  //Add listener to marker for reverse geocoding
-  google.maps.event.addListener(marker, 'drag', function() {
-    geocoder.geocode({'latLng': marker.getPosition()}, function(results, status) {
-      if (status == google.maps.GeocoderStatus.OK) {
-        if (results[0]) {
-          $('#address').val(results[0].formatted_address);
-          $('#latitude').val(marker.getPosition().lat());
-          $('#longitude').val(marker.getPosition().lng());
-        }
-      }
-    });
-  });
-
-
-});

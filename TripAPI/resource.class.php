@@ -8,9 +8,12 @@ abstract class Resource{
 	abstract function set_params();
  
 	function __construct($method, $id, $data = null, $parent = null, $pid = null){
-		
 		$this->set_params();
 		 
+		if(strtolower($id) == 'me') {
+			$id == 1; // insert logged in user
+		};
+		
 		switch($method) {
 			case 'GET':
 					$this->get($id, $parent, $pid);

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Värd: localhost
--- Skapad: 24 februari 2012 kl 14:58
+-- Skapad: 27 februari 2012 kl 14:22
 -- Serverversion: 5.5.8
 -- PHP-version: 5.3.5
 
@@ -39,24 +39,10 @@ CREATE TABLE IF NOT EXISTS `legs` (
 -- --------------------------------------------------------
 
 --
--- Ersättningsstruktur för visning `legs_view`
+-- Struktur för tabell `legs_view`
 --
-CREATE TABLE IF NOT EXISTS `legs_view` (
-`trips` int(11)
-,`sequence` int(11)
-,`from_lng` varchar(32)
-,`from_lat` varchar(32)
-,`id` int(11)
-,`leg_distance` int(11)
-,`user_to_destination` int(11)
-,`to_lng` varchar(32)
-,`to_lat` varchar(32)
-,`distance_after_leg` int(11)
-,`distance_before_leg` int(11)
-,`number_of_members` bigint(21)
-,`share_fee` decimal(29,7)
-,`pick_up_fee` decimal(26,3)
-);
+-- används(#1356 - View 'trip_api.legs_view' references invalid table(s) or column(s) or function(s) or definer/invoker of view lack rights to use them)
+
 -- --------------------------------------------------------
 
 --
@@ -66,12 +52,32 @@ CREATE TABLE IF NOT EXISTS `legs_view` (
 CREATE TABLE IF NOT EXISTS `passengers` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `users` int(11) NOT NULL,
-  `legs` int(11) NOT NULL,
+  `trips` int(11) NOT NULL,
   `confirmed_by_passenger` tinyint(1) NOT NULL DEFAULT '0',
   `confirmed_by_driver` tinyint(1) NOT NULL DEFAULT '0',
+  `lng` varchar(32) COLLATE utf8_bin NOT NULL,
+  `lat` varchar(32) COLLATE utf8_bin NOT NULL,
+  `user_to_destination` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=20 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=24 ;
 
+-- --------------------------------------------------------
+
+--
+-- Ersättningsstruktur för visning `passengers_view`
+--
+CREATE TABLE IF NOT EXISTS `passengers_view` (
+`id` int(11)
+,`users` int(11)
+,`trips` int(11)
+,`confirmed_by_passenger` tinyint(1)
+,`confirmed_by_driver` tinyint(1)
+,`lng` varchar(32)
+,`lat` varchar(32)
+,`user_to_destination` int(11)
+,`user_id` int(11)
+,`name` varchar(32)
+);
 -- --------------------------------------------------------
 
 --
@@ -89,7 +95,7 @@ CREATE TABLE IF NOT EXISTS `trips` (
   `message` text COLLATE utf8_bin NOT NULL,
   `confirmed` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=39 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=43 ;
 
 -- --------------------------------------------------------
 
@@ -116,7 +122,6 @@ CREATE TABLE IF NOT EXISTS `trips_view` (
 
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `twitterid` varchar(32) COLLATE utf8_bin NOT NULL,
   `name` varchar(32) COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=16 ;
@@ -124,11 +129,11 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- --------------------------------------------------------
 
 --
--- Struktur för visning `legs_view`
+-- Struktur för visning `passengers_view`
 --
-DROP TABLE IF EXISTS `legs_view`;
+DROP TABLE IF EXISTS `passengers_view`;
 
-CREATE ALGORITHM=TEMPTABLE DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `legs_view` AS select `this_legs`.`trips` AS `trips`,`this_legs`.`sequence` AS `sequence`,`this_legs`.`from_lng` AS `from_lng`,`this_legs`.`from_lat` AS `from_lat`,`this_legs`.`id` AS `id`,`this_legs`.`leg_distance` AS `leg_distance`,`this_legs`.`user_to_destination` AS `user_to_destination`,if(isnull(`next_legs`.`from_lng`),`trips`.`destination_lng`,`next_legs`.`from_lng`) AS `to_lng`,if(isnull(`next_legs`.`from_lat`),`trips`.`destination_lat`,`next_legs`.`from_lat`) AS `to_lat`,`next_legs`.`user_to_destination` AS `distance_after_leg`,`this_legs`.`user_to_destination` AS `distance_before_leg`,count(distinct `passengers_users`.`id`) AS `number_of_members`,(((`trips`.`km_cost` * 0.001) * if(isnull(`next_legs`.`user_to_destination`),`this_legs`.`user_to_destination`,(`this_legs`.`user_to_destination` - `next_legs`.`user_to_destination`))) / count(distinct `passengers_users`.`id`)) AS `share_fee`,((`trips`.`km_cost` * 0.001) * (`this_legs`.`leg_distance` - if(isnull(`next_legs`.`user_to_destination`),`this_legs`.`user_to_destination`,(`this_legs`.`user_to_destination` - `next_legs`.`user_to_destination`)))) AS `pick_up_fee` from ((((`legs` `this_legs` left join `legs` `next_legs` on(((`next_legs`.`sequence` - 1) = `this_legs`.`sequence`))) join `passengers` on((`this_legs`.`id` = `passengers`.`legs`))) join `users` `passengers_users` on((`passengers_users`.`id` = `passengers`.`users`))) join `trips` on((`trips`.`id` = `this_legs`.`trips`))) group by `this_legs`.`id` order by `this_legs`.`sequence`;
+CREATE ALGORITHM=TEMPTABLE DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `passengers_view` AS select `passengers`.`id` AS `id`,`passengers`.`users` AS `users`,`passengers`.`trips` AS `trips`,`passengers`.`confirmed_by_passenger` AS `confirmed_by_passenger`,`passengers`.`confirmed_by_driver` AS `confirmed_by_driver`,`passengers`.`lng` AS `lng`,`passengers`.`lat` AS `lat`,`passengers`.`user_to_destination` AS `user_to_destination`,`users`.`id` AS `user_id`,`users`.`name` AS `name` from (`passengers` join `users` on((`passengers`.`users` = `users`.`id`)));
 
 -- --------------------------------------------------------
 

@@ -1,40 +1,38 @@
 
 function Directions(mapObj, destObj, origObj, wayPObjs) {
-	directionsDisplay = new google.maps.DirectionsRenderer();
+	directionsDisplay = new google.maps.DirectionsRenderer({
+		suppressMarkers: true
+	});
   	directionsService = new google.maps.DirectionsService();
   	destMarker = destObj.marker;
   	origMarker = origObj.marker;
-  	this.waypoints = [];
+  	this.wpMarkers = [];
   	this.legs = [];
   	
-    directionsDisplay.setMap(mapObj);
+  	directionsDisplay.setMap(mapObj);
 
 	if(wayPObjs && wayPObjs.length) {
 		$.each(wayPObjs, function(i, wayPObj) {
-			this.wayPoints.push({location: wayPObj, stopover: true});
+			this.wpMarkers.push(wayPObj.marker);
 		});
 	}
 	
-	this.addWayPoint = function(waypoint) {
-    	this.waypoint.push({location: location, stopover: true});
-    	this.refresh();
+	this.addWayPoint = function(wayPObj) {
+    	this.wpMarkers.push(wayPObj.marker);
     }
     
     this.refresh = function() {
 	  	destination = destMarker.getPosition();
   		origin = origMarker.getPosition();
- 
-		/*
-		   		if(!this.destination || !this.origin) {
-			console.log("No directions");
-			console.log(this);
-     		return false;
-   		}*/
+ 		waypoints = [];
+ 		$.each(this.wpMarkers, function(i, marker) {
+ 			waypoints.push({location: marker.getPosition(), stopover: true});
+ 		}); 
 
 	    var request = {
 	        origin: origin ,
 	        destination: destination,
-	        waypoints: this.waypoints, 
+	        waypoints: waypoints, 
 	        travelMode: google.maps.DirectionsTravelMode.DRIVING,
 	        optimizeWaypoints: true,
 	    };
@@ -57,7 +55,6 @@ function Directions(mapObj, destObj, origObj, wayPObjs) {
 			var leg_data = {};
 			leg_data.sequence = i;
 			leg_data.leg_distance = leg.distance.value;
-			console.log(leg.start_location);
 			leg_data.location_lng = leg.start_location.lng();
 			leg_data.location_lat = leg.start_location.lat();
 			data.push(leg_data);	

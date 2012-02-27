@@ -4,10 +4,10 @@ Class Passengers extends Resource {
 	function set_params() {
 		$this->params = array(
 			'table' => 'passengers',
-			'view' => 'passengers',
-			'view_fields' => 'id, users, legs, confirmed_by_driver, confirmed_by_passenger',
-			'put_fields' => 'id, users, legs, confirmed_by_driver, confirmed_by_passenger',
-			'post_fields' =>	'users, legs, confirmed_by_driver, confirmed_by_passenger',
+			'view' => 'passengers_view',
+			'view_fields' => 'id, users, trips, confirmed_by_driver, confirmed_by_passenger, lng, lat, user_to_destination, user_id, name',				
+			'put_fields' => 'id, users, trips, confirmed_by_driver, confirmed_by_passenger, lng, lat, user_to_destination',
+			'post_fields' =>	'id, users, trips, confirmed_by_driver, confirmed_by_passenger, lng, lat, user_to_destination'
 		);
 	}
 
@@ -27,3 +27,4 @@ Class Passengers extends Resource {
 		return parent::put($id, $data);	
 	}
 }
+

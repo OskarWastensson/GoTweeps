@@ -38,14 +38,18 @@ function initialize(fromObj, toObj){
       "eta": $('#arrival').val(),
       "km_cost": $('#price').val(),
       "message": $('#message').val(),
+      "passengers": [ {
+        "lng": $('#longitude1').val(),
+        "lat": $('#latitude1').val(),
+        "leg_distance": leg.leg_distance
+      } ] // id of logged in user i set automically if users is missing
+      /*
       "legs":[
           { "sequence": leg.sequence, 
-            "from_lng": $('#longitude1').val(),
-            "from_lat": $('#latitude1').val(),
-            "leg_distance": leg.leg_distance,  
+              
             "user_to_destination": leg.leg_distance, 
-            "passengers": [ {"foo": 'bar'} ] // id of logged in user i set automically if users is missing
-        }]
+            
+        }]*/
     };
 
       $.post('http://localhost/gotweeps/tripAPI/?/trips', send, function(data) {
