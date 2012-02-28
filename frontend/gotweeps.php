@@ -32,7 +32,7 @@
       <ul>
         <li><a href="my_trips.php">Mina resor</a></li>
         <li><a href="gotweeps.php">Starta ny resa</a></li>
-        <li><a href="index.php">Logga ut</a></li>
+        <li><a href="../index.php">Logga ut</a></li>
       </ul>
     </div>
     
