@@ -13,19 +13,31 @@
     
   </head>
   <body>
-    <form class='form'>
-      <p>Åka från
-      <input id='address1' class="address" name='location' type='text' />
-      <input type="button" id="myLoc">
-      <input id="latitude1" type="hidden"/>
-      <input id="longitude1" type="hidden"/>
-      till
-      <input id='address2' class="address" type='text' name='destination' />
-      <input id="latitude2" type="hidden"/>
-      <input id="longitude2" type="hidden"/>
-      </p>
-    </form>
-
+    <div id="navBar">
+      <div id="logo">
+        <img src="../images/logoMini.png">
+      </div>
+      <form class='form'>
+        <button type="button" id="myLoc"><img src="../images/location.png"></button>
+        Åka från
+        <input id='address1' class="address" name='location' type='text' />
+        <input id="latitude1" type="hidden"/>
+        <input id="longitude1" type="hidden"/>
+        till
+        <input id='address2' class="address" type='text' name='destination' />
+        <input id="latitude2" type="hidden"/>
+        <input id="longitude2" type="hidden"/>
+        
+      </form>
+      <ul>
+        <li><a href="my_trips.php">Mina resor</a></li>
+        <li><a href="gotweeps.php">Starta ny resa</a></li>
+        <li><a href="index.php">Logga ut</a></li>
+      </ul>
+    </div>
+    
+    
+    <span id="close">X</span>
     <div class='menu'>
       <form class='options' id='options'>
         
