@@ -45,12 +45,12 @@
         "owner": "@oskarwastensson",
         "passengers": [
             {
-                "users": "1",
+                "users": "Hej",
                 "legs": "",
-                "confirmed_by_driver": "1",
+                "confirmed_by_driver": "0",
                 "confirmed_by_passenger": "1",
-                "lng": "",
-                "lat": "",
+                "lng": "18.129231500000037",
+                "lat": "59.3626134",
                 "user_to_destination": "1"
             },
             {
@@ -58,8 +58,26 @@
                 "legs": "",
                 "confirmed_by_driver": "1",
                 "confirmed_by_passenger": "1",
-                "lng": "",
-                "lat": "",
+                "lng": "18.099231500000037",
+                "lat": "59.3326134",
+                "user_to_destination": "1"
+            },
+            {
+                "users": "3",
+                "legs": "",
+                "confirmed_by_driver": "1",
+                "confirmed_by_passenger": "1",
+                "lng": "18.229231500000037",
+                "lat": "59.3476134",
+                "user_to_destination": "1"
+            },
+            {
+                "users": "4",
+                "legs": "",
+                "confirmed_by_driver": "0",
+                "confirmed_by_passenger": "1",
+                "lng": "18.019231500000037",
+                "lat": "59.3416134",
                 "user_to_destination": "1"
             }
 
