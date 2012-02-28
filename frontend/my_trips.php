@@ -3,17 +3,17 @@
   <head>
     <meta charset="utf-8">
     <title>Geocoding with GMap v3</title>
-    <link type="text/css" rel="stylesheet" href="style.css" />
+    <link type="text/css" rel="stylesheet" href="css/style.css" />
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js"></script>
-    <script type="text/javascript" src="my_trips.js"></script>
+    <script type="text/javascript" src="script/my_trips.js"></script>
   </head>
   <body>
     <div id="navBar">
       <ul>
         <li><a class="active" href="my_trips.php">Mina resor</a></li>
         <li><a href="gotweeps.php">Starta ny resa</a></li>
-        <li><a href="index.php">Logga ut</a></li>
+        <li><a href="../index.php">Logga ut</a></li>
       </ul>
     </div>
 

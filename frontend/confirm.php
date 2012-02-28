@@ -45,8 +45,8 @@ if ($confirm) {
 	<head>
 		<meta charset="utf-8">
 		<title>Confirm your trip</title>
-		<link type="text/css" rel="stylesheet" href="frontend/style.css" />
-		<link type="text/css" rel="stylesheet" href="confirm.css" />
+		<link type="text/css" rel="stylesheet" href="frontend/css/style.css" />
+		<link type="text/css" rel="stylesheet" href="css/confirm.css" />
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js"></script>
 	</head>
