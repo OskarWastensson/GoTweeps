@@ -19,16 +19,36 @@ var browserSupportFlag = new Boolean();
   });   
 
 $(document).ready(function() { 
-  initialize();
-});
-    
-function initialize(){
   //  Fetch get variable id
   url_vars = getUrlVars();
-  id = url_vars['trip'];
+  trip_id = url_vars['trip'];
+
+  initialize();
+  
+  // Form posting event
+  $('#options').submit(function(event) {
+
+    event.preventDefault();
+
+    // validate fields here!
+    send = {
+        "lng": $('#longitude').val(),
+        "lat": $('#latitude').val(),
+        "user_to_destination": directions.newUserToDestination()
+      }  // id of logged in user i set automically if users is missing
+
+    $.post('http://localhost/gotweeps/tripAPI/?/trips/' + trip_id + '/passengers/', send, function(data) {
+      window.location.href = "confirm_passenger.php?trip=" + trip_id;
+    }, 'json'); 
+  });
+});
+
+      
+function initialize(){
+  
 
   // Make JSON request for trip data
-  $.getJSON('http://localhost/gotweeps/TripAPI/?/trips/' + id, function(data){
+  $.getJSON('http://localhost/gotweeps/TripAPI/?/trips/' + trip_id, function(data){
 
     var trip = data["0"];
 
@@ -78,6 +98,7 @@ function initialize(){
         position: new google.maps.LatLng(passenger.lat, passenger.lng),
         title: passenger.name
       });
+      point.passenger = passenger;
 
       google.maps.event.addListener(point.marker, 'click', function () {
         infowindow.setContent(this.title);
@@ -116,6 +137,7 @@ function initialize(){
     // Directions object
     origin = waypoints.shift();
     directions = new Directions(map, destination, origin, waypoints);
+    directions.setTrip(trip);
 
     var newPassenger = new InputLoc($('#address'), $('#latitude'), $('#longitude'));  
     directions.addWayPoint(newPassenger);
@@ -137,7 +159,6 @@ function initialize(){
   }
 }
     
-
 function getUrlVars()
 {
     var vars = [], hash;

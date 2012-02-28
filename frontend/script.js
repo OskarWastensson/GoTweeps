@@ -28,7 +28,7 @@ function initialize(fromObj, toObj){
   $('#options').submit(function(event) {
 
     event.preventDefault();
-    leg = directions.legs[0];
+    leg = directions.getLeg();
 
     // validate fields here!
     send = {
@@ -41,21 +41,13 @@ function initialize(fromObj, toObj){
       "passengers": [ {
         "lng": $('#longitude1').val(),
         "lat": $('#latitude1').val(),
-        "leg_distance": leg.leg_distance
+        "user_to_destination": leg.leg_distance
       } ] // id of logged in user i set automically if users is missing
-      /*
-      "legs":[
-          { "sequence": leg.sequence, 
-              
-            "user_to_destination": leg.leg_distance, 
-            
-        }]*/
+
     };
 
       $.post('http://localhost/gotweeps/tripAPI/?/trips', send, function(data) {
-        id = data[0].id;
-        window.location.href = "confirm.php?trip=" + id;
-  
+        window.location.href = "confirm.php?trip=" + data[0].id;
       }, 'json'); 
   });
 
