@@ -1,3 +1,18 @@
+<?php
+session_start();
+require_once('twitterAPI/config.php');
+
+// Check if token is old
+/* if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_token']) || empty($_SESSION['access_token']['oauth_token_secret'])) {
+    header('Location:logout.php');
+} */
+
+// $access_token['screen_name'];
+
+$access_token = $_SESSION['access_token'];
+$connection = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET, $access_token['oauth_token'], $access_token['oauth_token_secret']);
+
+?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -32,7 +47,7 @@
       <ul>
         <li><a href="my_trips.php">Mina resor</a></li>
         <li><a href="gotweeps.php">Starta ny resa</a></li>
-        <li><a href="../index.php">Logga ut</a></li>
+        <li><a href="logout.php">Logga ut</a></li>
       </ul>
     </div>
     
