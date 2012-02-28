@@ -4,6 +4,9 @@ $(document).ready(function(){
 				
 		for (var i = 0; i < data.length; i++) {
 						
+			var tripId = data[i]["id"];
+
+
 			var passengers = data[i].passengers;
 			var pending = 0;
 			var confirmed = 0; 
@@ -13,10 +16,12 @@ $(document).ready(function(){
 			}
 
 			var tableData = {};
+			tableData.driverImg = $("<img src='../images/carMini.png'>")
 			tableData.destination = data[i].tag;
 			tableData.eta = data[i].eta;
 			tableData.confirmed = confirmed;
 			tableData.pending = pending;
+			tableData.tripId = tripId;
 			
 			var tr = createTableRow(tableData);  
 			$("#driverTable").append(tr);
@@ -25,11 +30,18 @@ $(document).ready(function(){
 	});
 
 	function createTableRow(tableData) {
-		var $tableRow = $("<tr/>");
+		var $tableRow = $("<tr/>").addClass('tr');
 		$.each(tableData, function(key, value) {
+			if(key !== "tripId"){
 			$("<td/>").html(value)
 					  .appendTo($tableRow);
+			}
 		});
+		$tableRow.click(function(){
+
+			window.location.href = ("my_map.php?id=" + tableData.tripId);
+			
+		})
 		return $tableRow;
 	}
 

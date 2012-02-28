@@ -128,6 +128,21 @@ $(document).ready(function() {
     
   initialize(fromObj, toObj);
 
+  var close = $("span#close");
+
+  close.click(function() {
+  
+    $("div.menu").animate({width: 'toggle'}, function(){
+      close.toggleClass("clicked")
+      if(close.text() === "X"){
+        close.text('<')
+      }else{
+        close.text('X')
+      }
+    });
+
+    
+  });
   
 });
 

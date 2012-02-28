@@ -1,0 +1,188 @@
+html, body{
+	height: 100%;
+	width: 100%;
+	margin: 0px;
+	padding: 0px;
+	font-family: "Arial", "Verdana", sans-serif;
+}
+
+#navBar{
+	position: absolute;
+	background-color: #fff;
+	-webkit-border-bottom-right-radius: 5px;
+	-webkit-border-bottom-left-radius: 5px;
+	-moz-border-radius-bottomright: 5px;
+	-moz-border-radius-bottomleft: 5px;
+	border-bottom-right-radius: 5px;
+	border-bottom-left-radius: 5px;
+	opacity: 0.9;
+	-moz-opacity: 0.9;
+	filter:alpha(opacity=9);
+	z-index: 10;
+	height: 40px;
+	width: 84%;
+	left: 6%;
+	padding: 5px;
+}
+
+#logo img{
+	width: 150px;
+	top: 0;
+	left: 20px;
+	position: absolute;
+}
+
+button#myLoc{
+	margin: 0 20px 0 0;
+	padding: 0;
+	float: left;
+}
+
+.form{
+	left: 210px;
+	top: 8px;
+	float: left;
+	height: 32px;
+	position: absolute;
+}
+
+.form p {
+	font-size: 1em;
+	margin: 6px 0;
+	height: 30px;
+}
+
+input{
+	padding: 5px;
+	font-size: 14px;
+}
+
+#navBar ul{
+	padding: 0;
+	list-style-type: none;
+	float: right;
+	margin: 10px 5% 0 0;
+}
+
+	#navBar li{
+		float: left;
+		margin: 0 10px;
+	}
+
+		#navBar a{
+			text-decoration: none;
+			font-weight: 500;
+			font-size: 18px;
+			color: #000;
+		}
+
+			#navBar a:hover{
+				color: red;
+			}
+
+#map_canvas{
+	height: 100%;
+	width: 100%;
+	margin: 0;
+}
+
+.menu {
+	position: absolute;
+	background-color: #fff;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	opacity: 0.9;
+	-moz-opacity: 0.9;
+	filter:alpha(opacity=9);
+	z-index: 10;
+	right: 0;
+	top: 80px;
+	padding: 10px;
+	width: 200px;
+	height: 450px;
+	z-index: 10;
+}
+
+	span#close{
+		position: absolute;
+		background-color: #fff;
+		-webkit-border-radius: 5px;
+		-moz-border-radius: 5px;
+		border-radius: 5px;
+		opacity: 0.9;
+		-moz-opacity: 0.9;
+		filter:alpha(opacity=9);
+		z-index: 10;
+		right: 0;
+		top: 40px;
+		padding: 10px;
+		width: 20px;
+		height: 20px;
+		z-index: 10;
+		text-align: center;
+	}
+	
+	span.clicked{
+		position: absolute;
+		background-color: #fff;
+		right: 0;
+		width: 20px;
+		height: 20px;
+		display: block;
+	}
+
+.options{
+	width: 160px;
+	margin: 10px 10px;
+
+}
+
+	.options input{
+		margin-bottom: 15px;
+		clear: both;
+	}
+
+	.options textarea{
+		height: 100px;
+
+	}
+
+	.options label{
+		clear: both;
+	}
+
+	input#number{
+		float: left;
+	}
+
+	#priceLabel{
+		float: left;
+	}
+
+.ui-autocomplete {
+    background-color: white;
+    width: 300px;
+    border: 1px solid #cfcfcf;
+    list-style-type: none;
+    padding-left: 0px;
+    -moz-opacity: 0.8;
+	filter:alpha(opacity=8);
+}
+
+	ul.ui-autocomplete li{
+	    background-color: white;
+	    width: 300px;
+	    border: 1px solid #cfcfcf;
+	    list-style-type: none;
+	    padding-left: 0px;
+	    -moz-opacity: 0.8;
+		filter:alpha(opacity=8);
+	}
+
+		ul.ui-autocomplete li:hover{
+		    background-color: #cce1ff;
+		    cursor: pointer;
+		}
+
+

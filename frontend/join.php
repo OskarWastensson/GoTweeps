@@ -3,14 +3,14 @@
   <head>
     <meta charset="utf-8">
     <title>Geocoding with GMap v3</title>
-    <link type="text/css" rel="stylesheet" href="join.css" />
+    <link type="text/css" rel="stylesheet" href="css/join.css" />
     <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
     <script type="text/javascript" src="http://code.google.com/apis/gears/gears_init.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js"></script>
-    <script type="text/javascript" src="join.js"></script>
-    <script type="text/javascript" src="directions.js"></script>
-    <script type="text/javascript" src="inputloc.js"></script>
+    <script type="text/javascript" src="script/join.js"></script>
+    <script type="text/javascript" src="../directions.js"></script>
+    <script type="text/javascript" src="script/inputloc.js"></script>
         
   </head>
   <body>
