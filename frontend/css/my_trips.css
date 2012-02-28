@@ -1,0 +1,93 @@
+html, body{
+	height: 100%;
+	width: 100%;
+	margin: 0px;
+	padding: 0px;
+	font-family: "Arial", "Verdana", sans-serif;
+	background: #ECECEC;
+}
+
+#navBar{
+	position: absolute;
+	background-color: #fff;
+	-webkit-border-bottom-right-radius: 5px;
+	-webkit-border-bottom-left-radius: 5px;
+	-moz-border-radius-bottomright: 5px;
+	-moz-border-radius-bottomleft: 5px;
+	border-bottom-right-radius: 5px;
+	border-bottom-left-radius: 5px;
+	opacity: 0.9;
+	-moz-opacity: 0.9;
+	filter:alpha(opacity=9);
+	z-index: 10;
+	height: 40px;
+	width: 84%;
+	top: 0;
+	left: 6%;
+	padding: 5px;
+}
+
+#logo img{
+	width: 150px;
+	top: 0;
+	left: 20px;
+	position: absolute;
+}
+
+#navBar ul{
+	padding: 0;
+	list-style-type: none;
+	float: right;
+	margin: 10px 5% 0 0;
+}
+
+	#navBar li{
+		float: left;
+		margin: 0 10px;
+	}
+
+		#navBar a{
+			text-decoration: none;
+			font-weight: 500;
+			font-size: 18px;
+			color: #000;
+		}
+
+			#navBar a:hover{
+				color: red;
+			}
+
+#contentWrapper{
+	width: 84%;
+	margin: 50px 0 0 6%;
+	padding: 30px 0;
+}
+
+	h1{
+		font-size: 24px;
+	}
+
+	table{
+		font-size: 16px;
+		text-align: center;
+		padding: 0;
+		border-spacing: 0px;
+	}
+
+	th{
+		width: 190px;
+	}
+
+	tr{
+		padding: 0;
+	}
+
+	.tr:hover{
+		background: #fff;
+		cursor: pointer;
+	}
+
+	span{
+		font-size: 12px;
+		font-style: italic;
+	}
