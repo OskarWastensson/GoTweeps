@@ -13,7 +13,7 @@ Class Passengers extends Resource {
 
 	function post($data) {
 		if(!isset($data['users'])) {
-			$data['users'] = 1; // logged in user
+			$data['users'] = $_SESSION['access_token']['user_id']; // logged in user
 		}
 
 		return parent::post($data);
@@ -21,7 +21,7 @@ Class Passengers extends Resource {
 
 	function put($id, $data) {
 		if(!isset($data['users'])) {
-			$data['users'] = 1; // logged in user
+			$data['users'] = $_SESSION['access_token']['user_id']; // logged in user
 		}
 
 		return parent::put($id, $data);	

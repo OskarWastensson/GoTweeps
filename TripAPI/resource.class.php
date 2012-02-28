@@ -11,7 +11,7 @@ abstract class Resource{
 		$this->set_params();
 		 
 		if(strtolower($id) == 'me') {
-			$id == 1; // insert logged in user
+			$id == $_SESSION['access_token']['user_id']; // insert logged in user
 		};
 		
 		switch($method) {

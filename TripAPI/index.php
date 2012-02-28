@@ -7,14 +7,8 @@ const DB_ERROR = 2;
 const EMPTY_SET = 3;
 const ACCESS_RESTRICTED = 4;
 
-// mysql connection
-if(!mysql_connect("localhost", "trip_api", "ZuNWeuYTMe2ZNDdL")) {
-  echo json_encode(error(DB_ERROR));
-  die();  
-}
-mysql_select_db("trip_api");
-/*
-require_once('twitterAPI/config.php');
+// mysql connection and user auth with twitter
+require_once('../twitterAPI/config.php');
 
 // Check if token is old
 if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_token']) || empty($_SESSION['access_token']['oauth_token_secret'])) {
@@ -23,7 +17,7 @@ if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_t
 
 $access_token = $_SESSION['access_token'];
 $connection = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET, $access_token['oauth_token'], $access_token['oauth_token_secret']);
-*/
+
 // API 
 require_once('api.class.php');
 $api = new TripAPI();
