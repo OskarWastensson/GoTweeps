@@ -9,6 +9,6 @@ define('OAUTH_CALLBACK', 'http://localhost/gotweeps/callback.php');
 mysql_connect('localhost', 'root', '') or die(mysql_error());
 mysql_select_db('trip_api') or die(mysql_error());
 
-require_once('twitterAPI/twitteroauth.php');
+require_once('twitteroauth.php');
 
 ?>
