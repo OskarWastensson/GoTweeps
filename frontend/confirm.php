@@ -16,9 +16,9 @@ $tweet = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET, OAUTH_TOKEN, OAUTH_SECR
 $trip_id = $_GET["trip"];
 
 // Get trip information form db
-$query = "SELECT id, users, tag, km_cost, eta, message
+$query = "SELECT *  
 		  FROM trips
-		  WHERE id = '{$trip_id}' AND confirmed = 0
+		  WHERE confirmed = 0 AND id = '{$trip_id}'
 		  LIMIT 1";
 $result = mysql_query($query);
 $trip = mysql_fetch_assoc($result);
@@ -29,10 +29,12 @@ $trip = mysql_fetch_assoc($result);
 } */
 
 $confirm = isset($_POST['confirm_trip']) ? $_POST['confirm_trip'] : '';
-$message = '@' . $access_token['screen_name'] . ' just created a trip to somewhere. http://localhost/gotweeps/meep.php';
+
+$message = '@' . $access_token['screen_name'] . ' ska åka till #' . $trip['tag']  . ' i ' . $trip['destination_word']  . '. Åk med!. http://localhost/gotweeps/join.php?trip=' . $trip['id'];
+$message = htmlentities($message);
 
 if ($confirm) {
-/* 	$tweet->post('statuses/update', array('status' => $message)); */
+ 	$tweet->post('statuses/update', array('status' => $message));
 	$query = "UPDATE trips
 			  SET confirmed = 1
 			  WHERE id = '{$trip['id']}'";			  
@@ -64,13 +66,14 @@ if ($confirm) {
 			<h1>Information om resan</h1>
 			<?php
 			echo '<p>Event: ' . $trip['tag'] . '</p>
+			<p>Till: ' . $trip['destination_word'] . '</p>
 			<p>Ber&auml;knad ankomstid: ' . $trip['eta'] . '</p>
 			<p>Antal medresen&auml;rer: ' . $trip['users'] . '</p>
 			<p>Pris/km: ' . $trip['km_cost'] . '</p>
 			<p>Meddelande till medresen&auml;rer: ' . $trip['message'] . '</p>
-			<h1>Skicka detta meddelande till twitter</h1>
+			<h1>@Gotweeps</h1>
 			<form action="confirm.php?trip=' . $trip['id'] . '" method="post">
-				<p>' . $message . '></p>
+				<p>' . $message . '</p>
 				<input type="submit" name="confirm_trip" id="confirm_trip" value="Confirm">
 			</form>';
 			?>
