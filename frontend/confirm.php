@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once('twitterAPI/config.php');
+require_once('../twitterAPI/config.php');
 
 // Check if token is old
 /* if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_token']) || empty($_SESSION['access_token']['oauth_token_secret'])) {
@@ -16,7 +16,7 @@ $tweet = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET, OAUTH_TOKEN, OAUTH_SECR
 $trip_id = $_GET["trip"];
 
 // Get trip information form db
-$query = "SELECT id, users, tag, km_cost, eta, message
+$query = "SELECT *  
 		  FROM trips
 		  WHERE id = '{$trip_id}' AND confirmed = 0
 		  LIMIT 1";
@@ -29,7 +29,7 @@ $trip = mysql_fetch_assoc($result);
 } */
 
 $confirm = isset($_POST['confirm_trip']) ? $_POST['confirm_trip'] : '';
-$message = '@' . $access_token['screen_name'] . ' just created a trip to somewhere. http://localhost/gotweeps/meep.php';
+$message = '@' . $access_token['screen_name'] . ' ska &aring;ka till ' . $trip['tag']  . ' created a trip to somewhere. http://localhost/gotweeps/meep.php';
 
 if ($confirm) {
 /* 	$tweet->post('statuses/update', array('status' => $message)); */
@@ -64,6 +64,7 @@ if ($confirm) {
 			<h1>Information om resan</h1>
 			<?php
 			echo '<p>Event: ' . $trip['tag'] . '</p>
+			<p id="till" class="' . $trip['destination_lat'],$trip['destination_lng'] . '">Till: ' . $trip['tag'] . '</p>
 			<p>Ber&auml;knad ankomstid: ' . $trip['eta'] . '</p>
 			<p>Antal medresen&auml;rer: ' . $trip['users'] . '</p>
 			<p>Pris/km: ' . $trip['km_cost'] . '</p>
