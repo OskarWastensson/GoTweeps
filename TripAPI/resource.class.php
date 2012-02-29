@@ -10,6 +10,7 @@ abstract class Resource{
 	function __construct($method, $id, $data = null, $parent = null, $pid = null){
 		$this->set_params();
 		 
+		// Replace special 'me' keyword with logged in user id. 
 		if(strtolower($id) == 'me') {
 			$id = $_SESSION['access_token']['user_id']; // insert logged in user
 		};
@@ -18,6 +19,7 @@ abstract class Resource{
 			$pid = $_SESSION['access_token']['user_id']; // insert logged in user
 		};
 
+		// make sure any other strings are lost.
 		$id = intval($id);
 		$pid = intval($pid);
 
