@@ -1,4 +1,5 @@
-function Validator(inputField, feedbackEL, submitButton) {
+
+function ValidatorNonEmpty(inputField, feedbackEL, submitButton) {
 	
 	inputField.keyup(function() {
 		if(validate()) {
@@ -7,12 +8,6 @@ function Validator(inputField, feedbackEL, submitButton) {
 			submitButton.attr('disabled', true);
 		}
 	});
-
-	return open
-}
-
-function ValidatorNonEmpty(inputField, feedbackEL, submitButton) {
-	var open = new Validator(inputField, feedbackEL, submitButton);
 
 	open.validate = function() {
 		if(inputField.val().length) {
@@ -25,4 +20,28 @@ function ValidatorNonEmpty(inputField, feedbackEL, submitButton) {
 	return open;
 } 
 
+function ValidatorNumber(inputField, feedbackEL, submitButton) {
+	
+	inputField.keyup(function() {
+		if(validate()) {
+
+			submitButton.attr('disabled', false);	
+		} else {
+			submitButton.attr('disabled', true);
+			feedbackEL.html('Bara siffror, tack!<br>')
+		}
+	});
+
+	validate = function() {
+		subject = inputField.val();
+		onlyNumbers = new RegExp(/^[0-9]+$/);
+		if(subject.search(onlyNumbers) != -1) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	return open;
+} 
 
