@@ -66,8 +66,7 @@ if ($confirm) {
 			<h1>Information om resan</h1>
 			<?php
 			echo '<p>Event: ' . $trip['tag'] . '</p>
-			<p>Till: ' . $trip['tag'] . '</p>
-			<p>Fr&auml;n: ' . $trip['tag'] . '</p>
+			<p>Till: ' . $trip['destination_word'] . '</p>
 			<p>Ber&auml;knad ankomstid: ' . $trip['eta'] . '</p>
 			<p>Antal medresen&auml;rer: ' . $trip['users'] . '</p>
 			<p>Pris/km: ' . $trip['km_cost'] . '</p>
