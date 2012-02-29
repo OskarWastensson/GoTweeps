@@ -25,7 +25,7 @@ $connection = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET, $access_token['oau
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js"></script>
     <script type="text/javascript" src="script/script.js"></script>
     <script type="text/javascript" src="script/directions.js"></script>
-    
+    <script type="text/javascript" src="script/validator.js"></script>
   </head>
   <body>
     <div id="navBar">
@@ -58,14 +58,24 @@ $connection = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET, $access_token['oau
         
         <label for="tag">Event</label>
         <input type='text' name='tag' id="tag" />
+        <span id='tag_feedback' class='feedback'></span>
+
         <label for="arrival">Beräknad ankomsttid</label>
         <input id='arrival' name='arrival' type='text' />
+        <span id='arrival_feedback' class='feedback'></span>
+
         <label for="number">Antal medresenärer</label>
         <input id="number" name="number" type="number" min="0" max ="100" step="1" value="0" />
+        <span id='number_feedback' class='feedback'></span>
+
         <label for="price">Pris/km</label>
         <input id="price" name='price' type='digits' />
+        <span id='price_feedback' class='feedback'></span>
+
         <label for="message">Meddelande till medresenärer</label>
         <textarea id="message" name='message' type='text'></textarea>
+        <span id='message_feedback' class='feedback'></span>
+
         <input id="submit" type="submit" value="Skicka" />
       </form>
     </div>

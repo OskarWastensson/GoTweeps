@@ -35,18 +35,21 @@ function initialize(fromObj, toObj){
       "tag": $('#tag').val(),
       "destination_lng": $('#longitude2').val(),
       "destination_lat": $('#latitude2').val(),
+      "destination_word": $('#address2').val(),
       "eta": $('#arrival').val(),
       "km_cost": $('#price').val(),
       "message": $('#message').val(),
-      "passengers": [ {
+      "max_passengers": $('#number').val(),
+        "passengers": [ {
         "lng": $('#longitude1').val(),
         "lat": $('#latitude1').val(),
+        "word": $('#address1').val(),
         "user_to_destination": leg.leg_distance
       } ] // id of logged in user i set automically if users is missing
 
     };
 
-      $.post('http://localhost/gotweeps/tripAPI/?/trips', send, function(data) {
+      $.post('http://localhost/git/gotweeps/tripAPI/?/trips', send, function(data) {
         window.location.href = "confirm.php?trip=" + data[0].id;
       }, 'json'); 
   });
@@ -111,10 +114,9 @@ function initialize(fromObj, toObj){
   });  
 }
     
-
-
 $(document).ready(function() { 
          
+  var validateEvent = new ValidatorNonEmpty($('#tag'), $('#tag_feedback'), $('#submit'));
  
   var fromField = $("#address1"),
       toField = $("#address2"),
@@ -214,5 +216,8 @@ function InputLoc(inputField, latField, lngField){
       });
     });
 };
+
+
+
 
 

@@ -1,5 +1,5 @@
 <?php
-require_once('twitterAPI/config.php');
+require_once('../twitterAPI/config.php');
 
 if(isset($_SESSION['access_token'])) { 
 	header('Location: meep.php');
@@ -11,6 +11,6 @@ if(isset($_SESSION['access_token'])) {
 		<title></title>
 	</head>
 	<body>
-		<a href="redirect.php"><img src="images/lighter.png" alt="Sign in with Twitter"/></a>
+		<a href="redirect.php"><img src="../images/lighter.png" alt="Sign in with Twitter"/></a>
 	</body>
 </html>

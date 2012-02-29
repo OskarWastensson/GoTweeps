@@ -5,9 +5,9 @@ Class Passengers extends Resource {
 		$this->params = array(
 			'table' => 'passengers',
 			'view' => 'passengers_view',
-			'view_fields' => 'id, users, trips, confirmed_by_driver, confirmed_by_passenger, lng, lat, user_to_destination, user_id, name',				
-			'put_fields' => 'id, users, trips, confirmed_by_driver, confirmed_by_passenger, lng, lat, user_to_destination',
-			'post_fields' =>	'id, users, trips, confirmed_by_driver, confirmed_by_passenger, lng, lat, user_to_destination'
+			'view_fields' => 'id, users, trips, confirmed_by_driver, confirmed_by_passenger, lng, lat, word, user_to_destination, user_id, name',				
+			'put_fields' => 'id, users, trips, confirmed_by_driver, confirmed_by_passenger, lng, lat, word, user_to_destination',
+			'post_fields' =>	'id, users, trips, confirmed_by_driver, confirmed_by_passenger, lng, lat, word, user_to_destination'
 		);
 	}
 
@@ -28,3 +28,6 @@ Class Passengers extends Resource {
 	}
 }
 
+/*
+SELECT passengers.*, users.id AS user_id, users.name AS name FROM passengers JOIN users ON passengers.users = users.id
+*/
