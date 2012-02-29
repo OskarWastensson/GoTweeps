@@ -8,8 +8,8 @@
     <script type="text/javascript" src="http://code.google.com/apis/gears/gears_init.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js"></script>
-    <script type="text/javascript" src="script/json.js"></script>
-    <script type="text/javascript" src="script/join.js"></script>
+    <script type="text/javascript" src="script/my_map.js"></script>
+    
   </head>
   <body>
     <form class='form'>

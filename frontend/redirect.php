@@ -3,7 +3,7 @@ session_start();
 require_once('../twitterAPI/config.php');
 
 $connection = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET);
-$request_token = $connection->getRequestToken('http://localhost/gotweeps/callback.php');
+$request_token = $connection->getRequestToken('http://localhost/git/gotweeps/frontend/callback.php');
 $_SESSION['oauth_token'] = $request_token['oauth_token'];
 $_SESSION['oauth_token_secret'] = $request_token['oauth_token_secret'];
 

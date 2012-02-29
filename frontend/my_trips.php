@@ -1,3 +1,4 @@
+<?php session_start() ?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -16,7 +17,7 @@
         <li><a href="../index.php">Logga ut</a></li>
       </ul>
     </div>
-
+    <?php print_r($_SESSION['access_token']['user_id']) ?>
     <div id="contentWrapper">
 
       <h1>Mina resor</h1>
