@@ -117,7 +117,10 @@ function initialize(fromObj, toObj){
 $(document).ready(function() { 
          
   var validateNumber = new ValidatorNumber($('#number'), $('#number_feedback'), $('#submit'));
- 
+  var validatePrice = new ValidatorMoney($('#price'), $('#price_feedback'), $('#submit'));
+  var vaildateArrival = new ValidatorDateTime($('#arrival'), $('#arrival_feedback'), $('#submit'));
+  var vaildateTag = new ValidatorNoSpaces($('#tag'), $('#tag_feedback'), $('#submit'));
+
   var fromField = $("#address1"),
       toField = $("#address2"),
       fromLat = $("#latitude1"),

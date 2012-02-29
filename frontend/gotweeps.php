@@ -58,23 +58,23 @@ $connection = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET, $access_token['oau
         
         <label for="tag">Event</label>
         <input type='text' name='tag' id="tag" />
-        <span id='tag_feedback' class='feedback'></span>
+        <p id='tag_feedback' class='feedback'></p>
 
         <label for="arrival">Beräknad ankomsttid</label>
         <input id='arrival' name='arrival' type='text' />
-        <span id='arrival_feedback' class='feedback'></span>
+        <p id='arrival_feedback' class='feedback'></p>
 
         <label for="number">Antal medresenärer</label>
         <input id="number" name="number" type="number" min="0" max ="100" step="1" value="0" />
-        <span id='number_feedback' class='feedback'></span>
+        <p id='number_feedback' class='feedback'></p>
 
         <label for="price">Pris/km</label>
         <input id="price" name='price' type='digits' />
-        <span id='price_feedback' class='feedback'></span>
+        <p id='price_feedback' class='feedback'></p>
 
         <label for="message">Meddelande till medresenärer</label>
         <textarea id="message" name='message' type='text'></textarea>
-        <span id='message_feedback' class='feedback'></span>
+        <p id='message_feedback' class='feedback'></p>
 
         <input id="submit" type="submit" value="Skicka" />
       </form>
