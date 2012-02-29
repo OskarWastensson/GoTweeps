@@ -116,7 +116,7 @@ function initialize(fromObj, toObj){
     
 $(document).ready(function() { 
          
-  var validateEvent = new ValidatorNonEmpty($('#tag'), $('#tag_feedback'), $('#submit'));
+  var validateNumber = new ValidatorNumber($('#number'), $('#number_feedback'), $('#submit'));
  
   var fromField = $("#address1"),
       toField = $("#address2"),

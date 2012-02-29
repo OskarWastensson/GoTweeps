@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Värd: localhost
--- Skapad: 29 februari 2012 kl 14:46
+-- Skapad: 29 februari 2012 kl 14:56
 -- Serverversion: 5.5.8
 -- PHP-version: 5.3.5
 
@@ -18,14 +18,6 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 --
 -- Databas: `trip_api`
 --
-
--- --------------------------------------------------------
-
---
--- Struktur för tabell `legs_view`
---
-
-CREATE ALGORITHM=TEMPTABLE DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `trip_api`.`legs_view` AS select `this_legs`.`trips` AS `trips`,`this_legs`.`sequence` AS `sequence`,`this_legs`.`from_lng` AS `from_lng`,`this_legs`.`from_lat` AS `from_lat`,`this_legs`.`id` AS `id`,`this_legs`.`leg_distance` AS `leg_distance`,`this_legs`.`user_to_destination` AS `user_to_destination`,if(isnull(`next_legs`.`from_lng`),`trip_api`.`trips`.`destination_lng`,`next_legs`.`from_lng`) AS `to_lng`,if(isnull(`next_legs`.`from_lat`),`trip_api`.`trips`.`destination_lat`,`next_legs`.`from_lat`) AS `to_lat`,`next_legs`.`user_to_destination` AS `distance_after_leg`,`this_legs`.`user_to_destination` AS `distance_before_leg`,count(distinct `passengers_users`.`id`) AS `number_of_members`,(((`trip_api`.`trips`.`km_cost` * 0.001) * if(isnull(`next_legs`.`user_to_destination`),`this_legs`.`user_to_destination`,(`this_legs`.`user_to_destination` - `next_legs`.`user_to_destination`))) / count(distinct `passengers_users`.`id`)) AS `share_fee`,((`trip_api`.`trips`.`km_cost` * 0.001) * (`this_legs`.`leg_distance` - if(isnull(`next_legs`.`user_to_destination`),`this_legs`.`user_to_destination`,(`this_legs`.`user_to_destination` - `next_legs`.`user_to_destination`)))) AS `pick_up_fee` from ((((`trip_api`.`legs` `this_legs` left join `trip_api`.`legs` `next_legs` on(((`next_legs`.`sequence` - 1) = `this_legs`.`sequence`))) join `trip_api`.`passengers` on((`this_legs`.`id` = `trip_api`.`passengers`.`legs`))) join `trip_api`.`users` `passengers_users` on((`passengers_users`.`id` = `trip_api`.`passengers`.`users`))) join `trip_api`.`trips` on((`trip_api`.`trips`.`id` = `this_legs`.`trips`))) group by `this_legs`.`id` order by `this_legs`.`sequence`;
 
 -- --------------------------------------------------------
 
