@@ -11,9 +11,16 @@ abstract class Resource{
 		$this->set_params();
 		 
 		if(strtolower($id) == 'me') {
-			$id == $_SESSION['access_token']['user_id']; // insert logged in user
+			$id = $_SESSION['access_token']['user_id']; // insert logged in user
 		};
 		
+		if(strtolower($pid) == 'me') {
+			$pid = $_SESSION['access_token']['user_id']; // insert logged in user
+		};
+
+		$id = intval($id);
+		$pid = intval($pid);
+
 		switch($method) {
 			case 'GET':
 					$this->get($id, $parent, $pid);
