@@ -117,11 +117,14 @@ function initialize(fromObj, toObj){
 }
     
 $(document).ready(function() { 
-         
-  var validateNumber = new ValidatorNumber($('#number'), $('#number_feedback'), $('#submit'));
-  var validatePrice = new ValidatorMoney($('#price'), $('#price_feedback'), $('#submit'));
-  var vaildateArrival = new ValidatorDateTime($('#arrival'), $('#arrival_feedback'), $('#submit'));
-  var vaildateTag = new ValidatorNoSpaces($('#tag'), $('#tag_feedback'), $('#submit'));
+  var submitButton    = $('#submit');       
+  var validateNumber  = new ValidatorNumber($('#number'), $('#number_feedback'), submitButton);
+  var validatePrice   = new ValidatorMoney($('#price'), $('#price_feedback'), submitButton);
+  var vaildateArrival = new ValidatorDateTime($('#arrival'), $('#arrival_feedback'), submitButton);
+  var vaildateFrom    = new ValidatorNoSpaces($('#tag'), $('#tag_feedback'), submitButton);
+  var vaildateTo      = new ValidatorNonEmpty($('#address1'), null, submitButton);
+  var vaildateFrom    = new ValidatorNonEmpty($('#address2'), null, submitButton);
+  submitButton.attr('disabled', true);
 
   var fromField = $("#address1"),
       toField = $("#address2"),

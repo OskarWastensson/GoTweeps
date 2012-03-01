@@ -1,11 +1,13 @@
 
 function ValidatorNonEmpty(inputField, feedbackEL, submitButton) {
 	
-	inputField.keyup(function() {
+	inputField.change(function() {
 		if(validate()) {
 			submitButton.attr('disabled', false);	
+			inputField.removeClass('error');
 		} else {
 			submitButton.attr('disabled', true);
+			inputField.addClass('error');
 		}
 	});
 
