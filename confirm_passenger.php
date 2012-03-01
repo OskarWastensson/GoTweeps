@@ -29,7 +29,7 @@ $trip = mysql_fetch_assoc($result);
 } */
 
 $confirm = isset($_POST['confirm_trip']) ? $_POST['confirm_trip'] : '';
-$message = '@' . $access_token['screen_name'] . ' vill gärna åka med till #' . $trip['tag']  . '. Titta! http://localhost/gotweeps/mymap.php';
+$message = '.@' . $access_token['screen_name'] . ' vill gärna åka med till #' . $trip['tag']  . '. Titta! http://localhost/gotweeps/mymap.php';
 $message = htmlentities($message);
 
 if ($confirm) {

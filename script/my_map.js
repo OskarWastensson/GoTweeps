@@ -14,7 +14,7 @@ $(document).ready(function(){
         map: map,
         position: location,
         title: "destination",
-        
+        icon: "images/destination.png"
       });
 
       destObj = { marker: destination };
@@ -169,6 +169,7 @@ function confirmedAndPending(trip) {
       map: map,
       position: location,
       title: "Driver",
+      icon: "images/car2.png"
   });
 
   driverObj = {marker:driver};

@@ -1,7 +1,7 @@
 $(document).ready(function(){
 	
 	$.getJSON('tripAPI/?/users/me/trips', function(data){
-				
+				console.log(data);
 		for (var i = 0; i < data.length; i++) {
 						
 			var tripId = data[i]["id"];
