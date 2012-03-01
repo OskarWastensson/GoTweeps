@@ -16,7 +16,7 @@ $(document).ready(function(){
 			}
 
 			var tableData = {};
-			tableData.driverImg = $("<img src='../images/carMini.png'>")
+			tableData.driverImg = $("<img src='images/carMini.png'>")
 			tableData.destination = data[i].tag;
 			tableData.eta = data[i].eta;
 			tableData.confirmed = confirmed;
