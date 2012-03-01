@@ -33,6 +33,15 @@ html, body{
 	position: absolute;
 }
 
+
+#loginImg{
+	margin-left: 190px;
+}
+
+	#loginImg img{
+		margin-top: 7px;
+	}
+
 #navBar ul{
 	padding: 0;
 	list-style-type: none;

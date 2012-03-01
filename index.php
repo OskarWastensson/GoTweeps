@@ -20,7 +20,7 @@
       <div id="logo">
         <img src="images/logoMini.png">
       </div>
-      <a href="redirect.php"><img src="images/lighter.png" alt="Sign in with Twitter"/></a>
+      <a id="loginImg" href="redirect.php"><img src="images/lighter.png" alt="Sign in with Twitter"/></a>
       <ul>
         <li><a href="gotweeps.php">Starta ny resa</a></li>
         <li><a href="my_trips.php">Mina resor</a></li>
