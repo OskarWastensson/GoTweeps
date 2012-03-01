@@ -1,86 +1,64 @@
 [
     {
-        "id": "1",
-        "tag": "Jensen",
-        "destination_lng": "18.029231500000037",
-        "destination_lat": "59.3426134",
-        "eta": "2012-02-16 15:05:00",
-        "number": "3",
-        "kmCost": "1",
-        "message": "Jag vill kunna åka långt utan att någon pratar med mig!",
-        "users": "1",
-        "owner": "@oskarwastensson",
+        "id": "3",
+        "tag": "skola",
+        "destination_lng": "19.008433400000058",
+        "destination_lat": "50.36887909999999",
+        "eta": "0000-00-00 00:00:00",
+        "km_cost": "200",
+        "message": "too school for cool",
+        "users": "507478441",
+        "owner": "marcdotse",
+        "confirmed": "0",
         "passengers": [
             {
-                "users": "1",
-                "legs": "",
-                "confirmed_by_driver": "1",
-                "confirmed_by_passenger": "1",
-                "lng": "",
-                "lat": "",
-                "user_to_destination": "1"
+                "id": "3",
+                "users": "507478441",
+                "trips": "3",
+                "confirmed_by_driver": "0",
+                "confirmed_by_passenger": "0",
+                "lng": "18.039517499999988",
+                "lat": "59.34259309999999",
+                "user_to_destination": "4985",
+                "user_id": "507478441",
+                "name": "marcdotse"
             },
             {
-                "users": "2",
-                "legs": "",
+                "id": "3",
+                "users": "507478441",
+                "trips": "3",
                 "confirmed_by_driver": "0",
-                "confirmed_by_passenger": "1",
-                "lng": "",
-                "lat": "",
-                "user_to_destination": "1"
+                "confirmed_by_passenger": "0",
+                "lng": "18.139517499999988",
+                "lat": "59.44259309999999",
+                "user_to_destination": "4985",
+                "user_id": "507478441",
+                "name": "freddy"
+            },
+            {
+                "id": "3",
+                "users": "507478441",
+                "trips": "3",
+                "confirmed_by_driver": "0",
+                "confirmed_by_passenger": "0",
+                "lng": "18.239517499999988",
+                "lat": "59.54259309999999",
+                "user_to_destination": "4985",
+                "user_id": "507478441",
+                "name": "hacker"
+            },
+            {
+                "id": "3",
+                "users": "507478441",
+                "trips": "3",
+                "confirmed_by_driver": "1",
+                "confirmed_by_passenger": "0",
+                "lng": "18.339517499999988",
+                "lat": "59.64259309999999",
+                "user_to_destination": "4985",
+                "user_id": "507478441",
+                "name": "dick_bathouse"
             }
-
-        ]
-    },
-    {
-        "id": "2",
-        "tag": "Stockholm",
-        "destination_lng": "18.029231500000037",
-        "destination_lat": "59.3426134",
-        "eta": "2012-02-16 15:05:00",
-        "number": "3",
-        "kmCost": "1",
-        "message": "Jag vill kunna åka långt utan att någon pratar med mig!",
-        "users": "1",
-        "owner": "@oskarwastensson",
-        "passengers": [
-            {
-                "users": "Hej",
-                "legs": "",
-                "confirmed_by_driver": "0",
-                "confirmed_by_passenger": "1",
-                "lng": "18.129231500000037",
-                "lat": "59.3626134",
-                "user_to_destination": "1"
-            },
-            {
-                "users": "2",
-                "legs": "",
-                "confirmed_by_driver": "1",
-                "confirmed_by_passenger": "1",
-                "lng": "18.099231500000037",
-                "lat": "59.3326134",
-                "user_to_destination": "1"
-            },
-            {
-                "users": "3",
-                "legs": "",
-                "confirmed_by_driver": "1",
-                "confirmed_by_passenger": "1",
-                "lng": "18.229231500000037",
-                "lat": "59.3476134",
-                "user_to_destination": "1"
-            },
-            {
-                "users": "4",
-                "legs": "",
-                "confirmed_by_driver": "0",
-                "confirmed_by_passenger": "1",
-                "lng": "18.019231500000037",
-                "lat": "59.3416134",
-                "user_to_destination": "1"
-            }
-
         ]
     }
 ]

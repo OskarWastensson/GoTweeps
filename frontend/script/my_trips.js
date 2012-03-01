@@ -1,12 +1,10 @@
 $(document).ready(function(){
-
-	$.getJSON('test.json', function(data){
+	
+	$.getJSON('../tripAPI/?/users/me/trips', function(data){
 				
 		for (var i = 0; i < data.length; i++) {
 						
 			var tripId = data[i]["id"];
-
-
 			var passengers = data[i].passengers;
 			var pending = 0;
 			var confirmed = 0; 
