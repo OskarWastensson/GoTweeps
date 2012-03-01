@@ -37,7 +37,7 @@ $(document).ready(function() {
         "user_to_destination": directions.newUserToDestination()
       }  // id of logged in user i set automically if users is missing
 
-    $.post('http://localhost/gotweeps/tripAPI/?/trips/' + trip_id + '/passengers/', send, function(data) {
+    $.post('http://localhost/git/gotweeps/tripAPI/?/trips/' + trip_id + '/passengers/', send, function(data) {
       window.location.href = "confirm_passenger.php?trip=" + trip_id;
     }, 'json'); 
   });
@@ -141,6 +141,11 @@ function initialize(){
 
     var newPassenger = new InputLoc($('#address'), $('#latitude'), $('#longitude'));  
     directions.addWayPoint(newPassenger);
+
+    directions.afterRefresh = function() {
+      $('#calculation').text(directions.newCost());
+    }
+
     directions.refresh();
 
   });  
@@ -148,14 +153,11 @@ function initialize(){
   function handleNoGeolocation(errorFlag){
    var sthlm = new google.maps.LatLng(59.300,18.114);
  
-     if(errorFlag == true){
-      alert("Geolocation fungerar inte!");
-      initialLocation = sthlm;
+    if(errorFlag == true){
+      console.log("Geolocation fungerar inte!");
     }else{
-      alert("Din webbläsare stödjer inte geolocation...");
-      initialLocation = sthlm;
+      console.log("Din webbläsare stödjer inte geolocation...");
     }
-    map.setCenter(initialLocation);
   }
 }
     

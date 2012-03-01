@@ -92,10 +92,12 @@ function initialize(fromObj, toObj){
 
       function handleNoGeolocation(errorFlag){
         if(errorFlag == true){
-          alert("Geolocation fungerar inte!");
+          console.log("Geolocation fungerar inte!");
+          $('#myLoc').attr('disabled', true);
           initialLocation = sthlm;
         }else{
-          alert("Din webbläsare stödjer inte geolocation...");
+          console.log("Din webbläsare stödjer inte geolocation...");
+          $('#myLoc').attr('disabled', true);
           initialLocation = sthlm;
         }
         map.setCenter(initialLocation);

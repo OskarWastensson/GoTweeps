@@ -15,6 +15,7 @@ function InputLoc(inputField, latField, lngField){
       marker.setPosition(location);
       marker.setVisible(true);
       directions.refresh();
+      
 
           //map.setCenter(location);
     };

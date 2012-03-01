@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Geocoding with GMap v3</title>
+    <title>GoTweeps - Intresseanmälan</title>
     <link type="text/css" rel="stylesheet" href="css/join.css" />
     <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
     <script type="text/javascript" src="http://code.google.com/apis/gears/gears_init.js"></script>
@@ -33,6 +33,7 @@
         <p id="number"></p>
         <h2>Pris/km</h2>
         <p id="price"></p>
+        <p id="example">(Vilket skulle bli <span id='calculation'>..</span> kr för dig om resan skulle bli som på bilden.)</p>
         <h2>Meddelande från förare</h2>
         <p id="message"></p>
         <input id="submit" type="submit" value="Jag vill åka med!">

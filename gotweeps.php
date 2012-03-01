@@ -17,7 +17,7 @@ $connection = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET, $access_token['oau
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Geocoding with GMap v3</title>
+    <title>GoTweeps - Skapa resa</title>
     <link type="text/css" rel="stylesheet" href="css/style.css" />
     <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
     <script type="text/javascript" src="http://code.google.com/apis/gears/gears_init.js"></script>
@@ -30,10 +30,10 @@ $connection = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET, $access_token['oau
   <body>
     <div id="navBar">
       <div id="logo">
-        <img src="../images/logoMini.png">
+        <img src="images/logoMini.png">
       </div>
       <form class='form'>
-        <button type="button" id="myLoc"><img src="../images/location.png"></button>
+        <button type="button" id="myLoc"><img src="images/location.png"></button>
         Åka från
         <input id='address1' class="address" name='location' type='text' />
         <input id="latitude1" type="hidden"/>

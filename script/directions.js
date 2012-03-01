@@ -42,6 +42,10 @@ function Directions(mapObj, destObj, origObj, wayPObjs) {
     	return trip.passengers[dynamicUsrIndex].user_to_destination;
     }
 
+    this.newCost = function() {
+    	return trip.passengers[dynamicUsrIndex].cost;
+    }
+
     this.getLeg = function() {
     	return legs[0];
     }
@@ -146,6 +150,12 @@ function Directions(mapObj, destObj, origObj, wayPObjs) {
 
 			this.legs = legs;
 		}
+
+		directions.afterRefresh();
+	}
+
+	this.afterRefresh = function() {
+		
 	}
 }    
 
