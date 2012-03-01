@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once('../twitterAPI/config.php');
+require_once('twitterAPI/config.php');
 
 // Check if token is old
 /* if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_token']) || empty($_SESSION['access_token']['oauth_token_secret'])) {

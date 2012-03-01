@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Värd: localhost
--- Skapad: 29 februari 2012 kl 14:56
+-- Skapad: 01 mars 2012 kl 10:01
 -- Serverversion: 5.5.8
 -- PHP-version: 5.3.5
 
@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `passengers` (
   `word` varchar(32) COLLATE utf8_bin NOT NULL,
   `user_to_destination` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=62 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=65 ;
 
 -- --------------------------------------------------------
 
@@ -53,8 +53,19 @@ CREATE TABLE IF NOT EXISTS `passengers_view` (
 ,`lat` varchar(32)
 ,`word` varchar(32)
 ,`user_to_destination` int(11)
-,`user_id` int(11)
-,`name` varchar(32)
+,`tag` varchar(32)
+,`destination_lng` varchar(32)
+,`destination_lat` varchar(32)
+,`destination_word` varchar(32)
+,`eta` datetime
+,`km_cost` int(11)
+,`message` text
+,`confirmed` tinyint(1)
+,`max_passengers` int(11)
+,`trip_id` int(11)
+,`passenger_name` varchar(32)
+,`driver_id` int(11)
+,`driver_name` varchar(32)
 );
 -- --------------------------------------------------------
 
@@ -75,7 +86,7 @@ CREATE TABLE IF NOT EXISTS `trips` (
   `confirmed` tinyint(1) NOT NULL,
   `max_passengers` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=79 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=82 ;
 
 -- --------------------------------------------------------
 
@@ -115,7 +126,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 DROP TABLE IF EXISTS `passengers_view`;
 
-CREATE ALGORITHM=TEMPTABLE DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `passengers_view` AS select `passengers`.`id` AS `id`,`passengers`.`users` AS `users`,`passengers`.`trips` AS `trips`,`passengers`.`confirmed_by_passenger` AS `confirmed_by_passenger`,`passengers`.`confirmed_by_driver` AS `confirmed_by_driver`,`passengers`.`lng` AS `lng`,`passengers`.`lat` AS `lat`,`passengers`.`word` AS `word`,`passengers`.`user_to_destination` AS `user_to_destination`,`users`.`id` AS `user_id`,`users`.`name` AS `name` from (`passengers` join `users` on((`passengers`.`users` = `users`.`id`)));
+CREATE ALGORITHM=TEMPTABLE DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `passengers_view` AS select `passengers`.`id` AS `id`,`passengers`.`users` AS `users`,`passengers`.`trips` AS `trips`,`passengers`.`confirmed_by_passenger` AS `confirmed_by_passenger`,`passengers`.`confirmed_by_driver` AS `confirmed_by_driver`,`passengers`.`lng` AS `lng`,`passengers`.`lat` AS `lat`,`passengers`.`word` AS `word`,`passengers`.`user_to_destination` AS `user_to_destination`,`trips`.`tag` AS `tag`,`trips`.`destination_lng` AS `destination_lng`,`trips`.`destination_lat` AS `destination_lat`,`trips`.`destination_word` AS `destination_word`,`trips`.`eta` AS `eta`,`trips`.`km_cost` AS `km_cost`,`trips`.`message` AS `message`,`trips`.`confirmed` AS `confirmed`,`trips`.`max_passengers` AS `max_passengers`,`trips`.`id` AS `trip_id`,`users`.`name` AS `passenger_name`,`driver`.`id` AS `driver_id`,`driver`.`name` AS `driver_name` from (((`passengers` join `users` on((`passengers`.`users` = `users`.`id`))) join `trips` on((`passengers`.`trips` = `trips`.`id`))) join `users` `driver` on((`trips`.`users` = `driver`.`id`)));
 
 -- --------------------------------------------------------
 

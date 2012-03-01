@@ -7,7 +7,7 @@ abstract class Resource{
  
 	abstract function set_params();
  
-	function __construct($method, $id, $data = null, $parent = null, $pid = null){
+	function __construct($method, $id, $data = null, $parent = null, $pid = null, $ancestors = ''){
 		$this->set_params();
 		 
 		// Replace special 'me' keyword with logged in user id. 
@@ -25,7 +25,7 @@ abstract class Resource{
 
 		switch($method) {
 			case 'GET':
-					$this->get($id, $parent, $pid);
+					$this->get($id, $parent, $pid, $ancestors);
 				break;
 			case 'POST':
 					$id = $this->post($data);
@@ -58,7 +58,7 @@ abstract class Resource{
 		}
 	}
 
-	function get($id, $parent = null, $pid = null){
+	function get($id, $parent = null, $pid = null, $ancestors = ''){
 		
 		// Create Where clause
 		$where_sql = "";
@@ -97,20 +97,26 @@ abstract class Resource{
 		if($id && isset($this->params['child_resources'])) {
 			$child_resources = explode(',', $this->params['child_resources']);
 			foreach($child_resources as $resource) {
-				require_once($resource . '.resource.php');    
-				$obj = new $resource('GET', '', null, get_class($this), $id);
-				$this->data[0][$resource] = $obj->data;
+				if(!strstr($ancestors, $resource)) {
+					require_once($resource . '.resource.php');    
+					$childs_ancestors = $ancestors . ', ' . strtolower(get_class($this));			
+					$obj = new $resource('GET', '', null, get_class($this), $id, $childs_ancestors);
+					$this->data[0][$resource] = $obj->data;
+				}
 			}
 		} elseif(isset($this->params['child_resources'])) {
-			$child_resources = explode(',', $this->params['child_resources']);
+			$child_resources = explode(', ', $this->params['child_resources']);
 			
 			if(is_array($this->data) and count($this->data)) {
 				foreach($this->data as $key => $row) {
 					$id = $row['id']; 
 					foreach($child_resources as $resource) {
-						require_once($resource . '.resource.php');    
-						$obj = new $resource('GET', '', null, get_class($this), $id);
-						$this->data[$key][$resource] = $obj->data;
+							if(!strstr($ancestors, $resource)) {
+							require_once($resource . '.resource.php');    
+							$childs_ancestors = $ancestors . ', ' . strtolower(get_class($this));
+							$obj = new $resource('GET', '', null, get_class($this), $id, $childs_ancestors);
+							$this->data[$key][$resource] = $obj->data;
+						}
 					}
 				}
 			}
