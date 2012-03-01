@@ -1,3 +1,10 @@
+<?php
+  require_once('twitterAPI/config.php');
+
+  if(isset($_SESSION['access_token'])) { 
+    header('Location: gotweeps.php');
+  }
+?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -11,11 +18,12 @@
 
     <div id="navBar">
       <div id="logo">
-        <img src="/gotweeps/images/logoMini.png">
+        <img src="images/logoMini.png">
       </div>
+      <a href="redirect.php"><img src="images/lighter.png" alt="Sign in with Twitter"/></a>
       <ul>
-        <li><a href="my_trips.php">Mina resor</a></li>
         <li><a href="gotweeps.php">Starta ny resa</a></li>
+        <li><a href="my_trips.php">Mina resor</a></li>
         <li><a href="index.php">Logga ut</a></li>
       </ul>
     </div>

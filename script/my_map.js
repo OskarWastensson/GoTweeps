@@ -30,6 +30,21 @@ $(document).ready(function(){
       directions = new Directions(map, destObj, driverObj, wayPoints);
       directions.refresh()
     });
+
+  var close = $("span#close");
+  
+  close.click(function() {
+  
+    $("div.menu").animate({width: 'toggle'}, function(){
+      close.toggleClass("clicked")
+      if(close.text() === "X"){
+        close.text('<')
+      }else{
+        close.text('X')
+      }
+    });
+  });
+  
 });
 
 var directions;

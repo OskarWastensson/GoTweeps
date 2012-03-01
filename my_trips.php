@@ -1,4 +1,3 @@
-<?php session_start() ?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -11,13 +10,15 @@
   </head>
   <body>
     <div id="navBar">
+      <div id="logo">
+        <img src="images/logoMini.png">
+      </div>
       <ul>
-        <li><a class="active" href="my_trips.php">Mina resor</a></li>
         <li><a href="gotweeps.php">Starta ny resa</a></li>
-        <li><a href="../index.php">Logga ut</a></li>
+        <li><a class="active" href="my_trips.php">Mina resor</a></li>
+        <li><a href="index.php">Logga ut</a></li>
       </ul>
     </div>
-    <?php print_r($_SESSION['access_token']['user_id']) ?>
     <div id="contentWrapper">
 
       <h1>Mina resor</h1>
@@ -42,7 +43,7 @@
           <th>Intresseanmälan <span>(från passagerare)</span></th>
         </tr>
         <tr class="tr">
-          <td><img src="../images/walkMini.png"></td>
+          <td><img src="images/walkMini.png"></td>
           <td><a href="my_map.php">Jensen</a></td>
           <td>28/6</td>
           <td>3</td>

@@ -14,10 +14,15 @@
         
   </head>
   <body>
-    <form class='form'>
-    
-    </form>
+    <div id="navBar">
+        <ul>
+            <li><a href="gotweeps.php">Starta ny resa</a></li>
+            <li><a class="active" href="my_trips.php">Mina resor</a></li>
+            <li><a href="logout.php">Logga ut</a></li>
+        </ul>
+    </div>  
 
+    <span id="close">X</span>
     <div class='menu'>
 
       <form id='options'>

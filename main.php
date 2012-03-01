@@ -1,8 +1,8 @@
 <?php
-require_once('../twitterAPI/config.php');
+require_once('twitterAPI/config.php');
 
 if(isset($_SESSION['access_token'])) { 
-	header('Location: meep.php');
+	header('Location: gotweeps.php');
 }
 ?>
 <!DOCTYPE html>

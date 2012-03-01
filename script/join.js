@@ -41,6 +41,21 @@ $(document).ready(function() {
       window.location.href = "confirm_passenger.php?trip=" + trip_id;
     }, 'json'); 
   });
+
+  var close = $("span#close");
+  
+  close.click(function() {
+  
+    $("div.menu").animate({width: 'toggle'}, function(){
+      close.toggleClass("clicked")
+      if(close.text() === "X"){
+        close.text('<')
+      }else{
+        close.text('X')
+      }
+    });
+  });
+
 });
 
       

@@ -6,7 +6,7 @@ define('CONSUMER_KEY', '5Pu9zSOeZ2KxyRsmbTzw');
 define('CONSUMER_SECRET', 'yHA8w5Blj1DurPvPgdOygBH7pG8GTJUJwQhhpcRuCG0');
 define('OAUTH_CALLBACK', 'http://localhost/gotweeps/callback.php');
 
-mysql_connect('localhost', 'trip_api', 'ZuNWeuYTMe2ZNDdL') or die(mysql_error());
+mysql_connect('localhost', 'root', 'root') or die(mysql_error());
 mysql_select_db('trip_api') or die(mysql_error());
 
 require_once('twitteroauth.php');

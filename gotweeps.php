@@ -45,8 +45,8 @@ $connection = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET, $access_token['oau
         
       </form>
       <ul>
-        <li><a href="my_trips.php">Mina resor</a></li>
         <li><a href="gotweeps.php">Starta ny resa</a></li>
+        <li><a href="my_trips.php">Mina resor</a></li>
         <li><a href="logout.php">Logga ut</a></li>
       </ul>
     </div>
