@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once('../twitterAPI/config.php');
+require_once('twitterAPI/config.php');
 
 // Check if token is old
 if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_token']) || empty($_SESSION['access_token']['oauth_token_secret'])) {
@@ -25,7 +25,7 @@ $connection = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET, $access_token['oau
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js"></script>
     <script type="text/javascript" src="script/script.js"></script>
     <script type="text/javascript" src="script/directions.js"></script>
-    
+    <script type="text/javascript" src="script/validator.js"></script>
   </head>
   <body>
     <div id="navBar">
@@ -58,14 +58,24 @@ $connection = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET, $access_token['oau
         
         <label for="tag">Event</label>
         <input type='text' name='tag' id="tag" />
+        <p id='tag_feedback' class='feedback'></p>
+
         <label for="arrival">Beräknad ankomsttid</label>
         <input id='arrival' name='arrival' type='text' />
+        <p id='arrival_feedback' class='feedback'></p>
+
         <label for="number">Antal medresenärer</label>
         <input id="number" name="number" type="number" min="0" max ="100" step="1" value="0" />
+        <p id='number_feedback' class='feedback'></p>
+
         <label for="price">Pris/km</label>
         <input id="price" name='price' type='digits' />
+        <p id='price_feedback' class='feedback'></p>
+
         <label for="message">Meddelande till medresenärer</label>
         <textarea id="message" name='message' type='text'></textarea>
+        <p id='message_feedback' class='feedback'></p>
+
         <input id="submit" type="submit" value="Skicka" />
       </form>
     </div>
