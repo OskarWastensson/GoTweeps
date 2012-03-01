@@ -1,4 +1,3 @@
-
 function Directions(mapObj, destObj, origObj, wayPObjs) {
 	directionsDisplay = new google.maps.DirectionsRenderer({
 		suppressMarkers: true
@@ -16,14 +15,17 @@ function Directions(mapObj, destObj, origObj, wayPObjs) {
 
   	directionsDisplay.setMap(mapObj);
 
-	if(wayPObjs && wayPObjs.length) {
+	/*if(wayPObjs && wayPObjs.length) {
 		$.each(wayPObjs, function(i, wayPObj) {
-			wpMarkers.push(wayPObj.marker);
+			wpMarkers.push(wayPObj);
 		});
-	}
+	}*/
+	wpMarkers = wayPObjs;
+
+	console.log(wpMarkers);
 	
 	this.addWayPoint = function(wayPObj, passenger) {
-    	wpMarkers.push(wayPObj.marker);
+    	wpMarkers.push(wayPObj);
     	dynamicWpIndex = wpMarkers.length - 1;
 
     	trip.passengers.push( {users: 'me'})
@@ -35,6 +37,7 @@ function Directions(mapObj, destObj, origObj, wayPObjs) {
     }
     
     this.refresh = function() {
+    	console.log(wpMarkers);
     	calculateStep1();
     }
 
@@ -53,7 +56,7 @@ function Directions(mapObj, destObj, origObj, wayPObjs) {
     calculateStep1 = function() {
 	  	if(null != dynamicWpIndex) {
 	  		// special request for the user_to_destination value of the dynamic waypoint
-	  		origin = wpMarkers[dynamicWpIndex].getPosition();
+	  		origin = wpMarkers[dynamicWpIndex].marker.getPosition();
 		  	destination = destMarker.getPosition();
 	  		
 	  		var request = {
@@ -80,8 +83,8 @@ function Directions(mapObj, destObj, origObj, wayPObjs) {
 	  	destination = destMarker.getPosition();
   		origin = origMarker.getPosition();
  		waypoints = [];
- 		$.each(wpMarkers, function(i, marker) {
- 			waypoints.push({location: marker.getPosition(), stopover: true});
+ 		$.each(wpMarkers, function(i, obj) {
+ 			waypoints.push({location: obj.marker.getPosition(), stopover: true});
  		}); 
 
 	    var request = {

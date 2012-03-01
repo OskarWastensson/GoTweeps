@@ -2,9 +2,9 @@ $(document).ready(function(){
     
   initialize();
 
-  var tripId = getUrlVars()["id"];
+  var tripId = getUrlVars()["trip"];
   //'../tripAPI/?/trips/' + tripId
-  $.getJSON('test.json', function(trip){
+  $.getJSON('tripAPI/?/trips/' + tripId, function(trip){
     
     var trip = trip[0];
 
@@ -19,7 +19,6 @@ $(document).ready(function(){
 
       destObj = { marker: destination };
 
-
       displayTravelInfo(trip);
 
       var confirmed_and_pending = confirmedAndPending(trip);
@@ -29,12 +28,8 @@ $(document).ready(function(){
       passengersInfo();
 
       directions = new Directions(map, destObj, driverObj, wayPoints);
-   
-    
-  });
-
-  
-  
+      directions.refresh()
+    });
 });
 
 var directions;
@@ -58,12 +53,12 @@ function initialize() {
 
 
 function passengersInfo(){
-  
+   
   for(var i = 0; i < confirmed.length; i++){
     var user = confirmed[i].user;
     var location = new google.maps.LatLng(confirmed[i].lat, confirmed[i].lng);
     var content = confirmed[i].user + "<div><a href='' class='remove_passenger'>Ta bort personen från din resa!<a/></div>";
-    var imgUrl = '../images/markerBlue.png'
+    var imgUrl = 'images/markerGreen.png'
     setMarkers(user, location, content, imgUrl, "confirmed");
   }
 
@@ -71,7 +66,7 @@ function passengersInfo(){
     var user = pending[i].user;
     var location = new google.maps.LatLng(pending[i].lat, pending[i].lng);
     var content = pending[i].user + "<div><a href='' class='add_passenger'>Lägg till personen till din resa!<a/></div>";
-    var imgUrl = '../images/markerGreen.png'
+    var imgUrl = 'images/markerRed.png'
     setMarkers(user, location, content, imgUrl, "pending");
   }
 
@@ -162,19 +157,20 @@ function confirmedAndPending(trip) {
   });
 
   driverObj = {marker:driver};
-  
+
   for (var j = 0; j < passengers.length; j++) {
+    
     var confirmed_by_driver = passengers[j].confirmed_by_driver;
     var confirmObj = {};
     var pendingObj = {};
     if (confirmed_by_driver == "1" ){
-      confirmObj.user = passengers[j]["name"];
+      confirmObj.user = passengers[j]["passenger_name"];
       confirmObj.lat = passengers[j].lat;
       confirmObj.lng = passengers[j].lng;
       confirmed.push(confirmObj);
       
     }else{
-      pendingObj.user = passengers[j]["name"];
+      pendingObj.user = passengers[j]["passenger_name"];
       pendingObj.lat = passengers[j].lat;
       pendingObj.lng = passengers[j].lng;
       pending.push(pendingObj);
