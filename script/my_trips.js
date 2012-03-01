@@ -1,12 +1,10 @@
 $(document).ready(function(){
-
-	$.getJSON('test.json', function(data){
+	
+	$.getJSON('../tripAPI/?/users/me/trips', function(data){
 				
 		for (var i = 0; i < data.length; i++) {
 						
 			var tripId = data[i]["id"];
-
-
 			var passengers = data[i].passengers;
 			var pending = 0;
 			var confirmed = 0; 
@@ -16,7 +14,7 @@ $(document).ready(function(){
 			}
 
 			var tableData = {};
-			tableData.driverImg = $("<img src='../images/carMini.png'>")
+			tableData.driverImg = $("<img src='images/carMini.png'>")
 			tableData.destination = data[i].tag;
 			tableData.eta = data[i].eta;
 			tableData.confirmed = confirmed;
