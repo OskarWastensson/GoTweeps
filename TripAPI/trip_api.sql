@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Värd: localhost
--- Skapad: 01 mars 2012 kl 10:01
+-- Skapad: 01 mars 2012 kl 14:46
 -- Serverversion: 5.5.8
 -- PHP-version: 5.3.5
 
@@ -25,7 +25,8 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 -- Struktur för tabell `passengers`
 --
 
-CREATE TABLE IF NOT EXISTS `passengers` (
+DROP TABLE IF EXISTS `passengers`;
+CREATE TABLE `passengers` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `users` int(11) NOT NULL,
   `trips` int(11) NOT NULL,
@@ -36,14 +37,15 @@ CREATE TABLE IF NOT EXISTS `passengers` (
   `word` varchar(32) COLLATE utf8_bin NOT NULL,
   `user_to_destination` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=65 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=70 ;
 
 -- --------------------------------------------------------
 
 --
 -- Ersättningsstruktur för visning `passengers_view`
 --
-CREATE TABLE IF NOT EXISTS `passengers_view` (
+DROP VIEW IF EXISTS `passengers_view`;
+CREATE TABLE `passengers_view` (
 `id` int(11)
 ,`users` int(11)
 ,`trips` int(11)
@@ -58,7 +60,7 @@ CREATE TABLE IF NOT EXISTS `passengers_view` (
 ,`destination_lat` varchar(32)
 ,`destination_word` varchar(32)
 ,`eta` datetime
-,`km_cost` int(11)
+,`km_cost` decimal(6,2)
 ,`message` text
 ,`confirmed` tinyint(1)
 ,`max_passengers` int(11)
@@ -73,34 +75,36 @@ CREATE TABLE IF NOT EXISTS `passengers_view` (
 -- Struktur för tabell `trips`
 --
 
-CREATE TABLE IF NOT EXISTS `trips` (
+DROP TABLE IF EXISTS `trips`;
+CREATE TABLE `trips` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `users` int(11) NOT NULL,
   `tag` varchar(32) COLLATE utf8_bin NOT NULL,
   `destination_lng` varchar(32) COLLATE utf8_bin NOT NULL,
   `destination_lat` varchar(32) COLLATE utf8_bin NOT NULL,
   `destination_word` varchar(32) COLLATE utf8_bin NOT NULL,
-  `km_cost` int(11) NOT NULL,
+  `km_cost` decimal(6,2) NOT NULL,
   `eta` datetime NOT NULL,
   `message` text COLLATE utf8_bin NOT NULL,
   `confirmed` tinyint(1) NOT NULL,
   `max_passengers` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=82 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=85 ;
 
 -- --------------------------------------------------------
 
 --
 -- Ersättningsstruktur för visning `trips_view`
 --
-CREATE TABLE IF NOT EXISTS `trips_view` (
+DROP VIEW IF EXISTS `trips_view`;
+CREATE TABLE `trips_view` (
 `id` int(11)
 ,`tag` varchar(32)
 ,`destination_lng` varchar(32)
 ,`destination_lat` varchar(32)
 ,`destination_word` varchar(32)
 ,`eta` datetime
-,`km_cost` int(11)
+,`km_cost` decimal(6,2)
 ,`message` text
 ,`max_passengers` int(11)
 ,`users` int(11)
@@ -113,7 +117,8 @@ CREATE TABLE IF NOT EXISTS `trips_view` (
 -- Struktur för tabell `users`
 --
 
-CREATE TABLE IF NOT EXISTS `users` (
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(32) COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`id`)
@@ -135,4 +140,4 @@ CREATE ALGORITHM=TEMPTABLE DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `trips_view`;
 
-CREATE ALGORITHM=TEMPTABLE DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `trips_view` AS select `trips`.`id` AS `id`,`trips`.`tag` AS `tag`,`trips`.`destination_lng` AS `destination_lng`,`trips`.`destination_lat` AS `destination_lat`,`trips`.`destination_word` AS `destination_word`,`trips`.`eta` AS `eta`,`trips`.`km_cost` AS `km_cost`,`trips`.`message` AS `message`,`trips`.`max_passengers` AS `max_passengers`,`trips`.`users` AS `users`,`users`.`name` AS `owner`,`trips`.`confirmed` AS `confirmed` from (`trips` join `users` on((`users`.`id` = `trips`.`users`)));
+CREATE ALGORITHM=TEMPTABLE DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `trips_view` AS select `trips`.`id` AS `id`,`trips`.`tag` AS `tag`,`trips`.`destination_lng` AS `destination_lng`,`trips`.`destination_lat` AS `destination_lat`,`trips`.`destination_word` AS `destination_word`,`trips`.`eta` AS `eta`,`trips`.`km_cost` AS `km_cost`,`trips`.`message` AS `message`,`trips`.`max_passengers` AS `max_passengers`,`trips`.`users` AS `users`,`users`.`name` AS `owner`,`trips`.`confirmed` AS `confirmed` from (`trips` join `users` on((`users`.`id` = `trips`.`users`))) order by `trips`.`eta` desc;
