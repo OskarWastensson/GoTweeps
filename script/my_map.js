@@ -2,7 +2,7 @@ $(document).ready(function(){
     
   initialize();
 
-  var tripId = getUrlVars()["trip"];
+  var tripId = getUrlVars()["id"];
   //'../tripAPI/?/trips/' + tripId
   $.getJSON('tripAPI/?/trips/' + tripId, function(trip){
     
