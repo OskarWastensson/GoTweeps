@@ -47,7 +47,7 @@ if ($confirm) {
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>Confirm your trip</title>
+		<title>GoTweeps - Bekräfta resa</title>
 		<link type="text/css" rel="stylesheet" href="css/my_trips.css" />
 		<link type="text/css" rel="stylesheet" href="css/confirm.css" />
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>
@@ -55,6 +55,9 @@ if ($confirm) {
 	</head>
 	<body>
 		<div id="navBar">
+			<div id="logo">
+		    	<img src="images/logoMini.png">
+		    </div>
 			<ul>
 				<li><a href="gotweeps.php">Starta ny resa</a></li>
 				<li><a class="active" href="my_trips.php">Mina resor</a></li>

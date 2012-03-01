@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Geocoding with GMap v3</title>
+    <title>GoTweeps - Min Resa</title>
     <link type="text/css" rel="stylesheet" href="css/join.css" />
     <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
     <script type="text/javascript" src="http://code.google.com/apis/gears/gears_init.js"></script>
