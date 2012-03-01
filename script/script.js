@@ -44,7 +44,8 @@ function initialize(fromObj, toObj){
         "lng": $('#longitude1').val(),
         "lat": $('#latitude1').val(),
         "word": $('#address1').val(),
-        "user_to_destination": leg.leg_distance
+        "user_to_destination": leg.leg_distance,
+        "confirmed_by_driver": 1
       } ] // id of logged in user i set automically if users is missing
 
     };
@@ -104,7 +105,6 @@ function initialize(fromObj, toObj){
       }
     
   });
-  
 
   //GEOCODER
   geocoder = new google.maps.Geocoder();
