@@ -155,8 +155,8 @@ function getUrlVars() {
 function displayTravelInfo(trip) {
   $("#event").text(trip.tag);
   $("#arrival").text(trip.eta);
-  $("#number").text(trip.number);
-  $("#price").text(trip.kmCost);
+  $("#number").text(trip.max_passengers);
+  $("#price").text(trip.km_cost);
   $("#message").text(trip.message);
 }
 
