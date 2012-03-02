@@ -15,7 +15,8 @@ $tweet = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET, OAUTH_TOKEN, OAUTH_SECR
 
 $trip_id = $_GET["trip"];
 
-// Get trip information form TripAPI
+// Get trip information from tripAPI
+
 $resource = 'trips';
 require_once('tripAPI/resource.class.php');
 require_once('tripAPI/'. $resource . '.resource.php');		
@@ -29,13 +30,14 @@ $trip = $obj->data[0];
 } */
 
 $confirm = isset($_POST['confirm_trip']) ? $_POST['confirm_trip'] : '';
-$message = '@'. $trip['owner'] . '! @' . $access_token['screen_name'] . ' vill gärna åka med till #' . $trip['tag']  . '. Kolla efter om det passar! http://gotweeps.se/my_map.php?id=' . $trip_id;
 
+$message = '.@' . $access_token['screen_name'] . ' ska åka till #' . $trip['tag'] . ' i ' . $trip['destination_word'] . ' från ' . $trip['passengers'][0]['word'] . '. Åk med!. http://gotweeps/join.php?trip=' . $trip['id'];
+//$message = htmlentities($message);
 
 if ($confirm) {
  	$tweet->post('statuses/update', array('status' => $message));
-	$query = "UPDATE passengers
-			  SET confirmed_by_passenger = 1 AND users = '{$access_token['user_id']}'
+	$query = "UPDATE trips
+			  SET confirmed = 1
 			  WHERE id = '{$trip['id']}'";			  
 	mysql_query($query);
 
@@ -56,8 +58,8 @@ if ($confirm) {
 	<body>
 		<div id="navBar">
 			<div id="logo">
-		    	<img src="images/logoMini.png">
-		    </div>
+		        <img src="images/logoMini.png">
+		      </div>
 			<ul>
 				<li><a href="gotweeps.php">Starta ny resa</a></li>
 				<li><a class="active" href="my_trips.php">Mina resor</a></li>
@@ -69,14 +71,15 @@ if ($confirm) {
 			<?php
 			echo '<p>Event: ' . $trip['tag'] . '</p>
 			<p>Till: ' . $trip['destination_word'] . '</p>
+			<p>Från: ' . $trip['passengers'][0]['word'] . '</p>
 			<p>Ber&auml;knad ankomstid: ' . $trip['eta'] . '</p>
-			<p>Antal medresen&auml;rer: ' . $trip['users'] . '</p>
+			<p>Antal medresen&auml;rer: ' . $trip['max_passengers'] . '</p>
 			<p>Pris/km: ' . $trip['km_cost'] . '</p>
 			<p>Meddelande till medresen&auml;rer: ' . $trip['message'] . '</p>
-			<h1>@GoTweeps twittrar:</h1>
+			<h1>@Gotweeps twittrar:</h1>
 			<form action="confirm.php?trip=' . $trip['id'] . '" method="post">
 				<p>' . $message . '</p>
-				<input type="submit" name="confirm_trip" id="confirm_trip" value="Bekräfta">
+				<input type="submit" name="confirm_trip" id="confirm_trip" value="Confirm">
 			</form>';
 			?>
 		</div>
