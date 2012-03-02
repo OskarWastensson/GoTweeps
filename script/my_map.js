@@ -1,35 +1,44 @@
+var directions;
+var map;
+
 $(document).ready(function(){
     
   initialize();
 
   var tripId = getUrlVars()["id"];
-  //'../tripAPI/?/trips/' + tripId
-  $.getJSON('tripAPI/?/trips/' + tripId, function(trip){
+  // tripAPI/?/trips/ + tripId
+  $.getJSON('frontend/test.json', function(trip){
     
     var trip = trip[0];
+    
+    var dest_lat = trip.destination_lat;
+    var dest_lng = trip.destination_lng;
+    
+    var destination = new Marker(map, dest_lat, dest_lng, "Destination");
+    destination.setIcon("images/destination.png")
 
-      var location = new google.maps.LatLng(trip.destination_lat, trip.destination_lng);
+    
+    var destObj = { marker: destination };
 
-      var destination = new google.maps.Marker({
-        map: map,
-        position: location,
-        title: "destination",
-        icon: "images/destination.png"
-      });
+    var passengers = trip.passengers;
+    var driverData = passengers.shift();
+    
+    var driver = new Marker(map, driverData.lat, driverData.lng, "Driver");
+    driver.setIcon("images/car2.png");
+    var driverObj = { marker: driver };
+    
+    displayTravelInfo(trip);
+    
+    //global    
+    passengerObjs = confirmedOrPending(passengers);
+    
+    setMarkers();
 
-      destObj = { marker: destination };
-
-      displayTravelInfo(trip);
-
-      var confirmed_and_pending = confirmedAndPending(trip);
-      confirmed = confirmed_and_pending.confirmed;
-      pending = confirmed_and_pending.pending;
+    directions = new Directions(map, destObj, driverObj, []);
+    
+    directions.refresh();
       
-      passengersInfo();
-
-      directions = new Directions(map, destObj, driverObj, wayPoints);
-      directions.refresh()
-    });
+  });
 
   var close = $("span#close");
   
@@ -47,14 +56,6 @@ $(document).ready(function(){
   
 });
 
-var directions;
-var map;
-var confirmed = [];
-var pending = [];
-var wayPoints = [];
-var driverObj = {};
-
-
 function initialize() {
   var myOptions = {
     center: new google.maps.LatLng(59.397, 18.644),
@@ -66,78 +67,29 @@ function initialize() {
   
 }
 
+function setMarkers(){
 
-function passengersInfo(){
-   
-  for(var i = 0; i < confirmed.length; i++){
-    var user = confirmed[i].user;
-    var location = new google.maps.LatLng(confirmed[i].lat, confirmed[i].lng);
-    var content = confirmed[i].user + "<div><a href='' class='remove_passenger'>Ta bort personen från din resa!<a/></div>";
-    var imgUrl = 'images/markerGreen.png'
-    setMarkers(user, location, content, imgUrl, "confirmed");
-  }
-
-  for(var i = 0; i < pending.length; i++){
-    var user = pending[i].user;
-    var location = new google.maps.LatLng(pending[i].lat, pending[i].lng);
-    var content = pending[i].user + "<div><a href='' class='add_passenger'>Lägg till personen till din resa!<a/></div>";
-    var imgUrl = 'images/markerRed.png'
-    setMarkers(user, location, content, imgUrl, "pending");
-  }
-
-  function setMarkers(user, pos, content, imgUrl, cat){
+  for (var i = 0; i < passengerObjs.length; i++) {
     
-    // Infowindow object for popup descriptions
-    var infowindow = new google.maps.InfoWindow({});
-
-    var marker = new google.maps.Marker({
-      map: map,
-      position: pos,
-      title: user,
-      icon: imgUrl
-    });
-
-    if (cat === "confirmed")
-      wayPoints.push({marker: marker});
-
-    console.log(wayPoints);
-
-    google.maps.event.addListener(marker, 'click', function () {
-      infowindow.setContent(content);
-      infowindow.open(map, this);
-    });
-
-    google.maps.event.addListener(infowindow, 'domready', function() {
-      $(".add_passenger").click(function(evt){
-        evt.preventDefault();
-        for (var i = 0; i < pending.length; i++) {
-          var passenger = pending[i];
-          if (passenger.user === user) {
-            confirmed.push(pending[i]);
-            pending.splice(i, 1);
-            passengersInfo();
-          }
-        }
-        directions.refresh()
-        
-      });
-
-      $(".remove_passenger").bind("click", function(evt) {
-        evt.preventDefault();
-        for (var i = 0; i < confirmed.length; i++) {
-          var passenger = confirmed[i];
-          if (passenger.user === user) {
-            pending.push(confirmed[i]);
-            confirmed.splice(i, 1);
-            passengersInfo();
-          }
-        }
-        directions.refresh()
-     });
-    });
-
+    var passenger = passengerObjs[i];
+    var name = passenger["name"];
+    var lat = passenger.lat;
+    var lng = passenger.lng;
+    var category = passenger.category
+    if (category === "confirmed") {
+      var content = passenger["name"] + "<div><a href='' class='remove_passenger'>Ta bort personen från din resa!<a/></div>";
+      var imgURL = "images/markerGreen.png";
+    }
+    else {
+      var content = passenger["name"] + "<div><a href='' class='add_passenger'>Lägg till personen till din resa!<a/></div>";
+      var imgURL = 'images/markerRed.png';
+    }
+    var passengerMarker = new Marker(map, lat, lng, name);
+    passengerMarker.setIcon(imgURL);
+    passengerMarker.setInfoWindow(content);
+       
   }
-
+  
 }
 
 function getUrlVars() {
@@ -160,40 +112,84 @@ function displayTravelInfo(trip) {
   $("#message").text(trip.message);
 }
 
-function confirmedAndPending(trip) {
-  //skapar passagerarobjekt och delar upp dom i två arrayer: confirmed och pending.
-  var passengers = trip.passengers;
-  driverInfo = passengers.shift();
-  var location = new google.maps.LatLng(driverInfo.lat, driverInfo.lng);
-  var driver = new google.maps.Marker({
-      map: map,
-      position: location,
-      title: "Driver",
-      icon: "images/car2.png"
+function confirmedOrPending(passengers) {
+  var passengerObjs = [];
+  for (var i = 0; i < passengers.length; i++) {
+    var confirmed_by_driver = passengers[i].confirmed_by_driver;
+    var category = confirmed_by_driver === "1" ? "confirmed" : "pending";
+    
+    var passengerObj = {
+      name: passengers[i].passenger_name,
+      lat: passengers[i].lat,
+      lng: passengers[i].lng,
+      category: category
+    };
+    passengerObjs.push(passengerObj);
+    
+  }
+  return passengerObjs;
+}
+
+function Marker(map, lat, lng, title) {
+    
+  var location = new google.maps.LatLng(lat, lng);
+
+  var marker = new google.maps.Marker({
+    map: map,
+    position: location,
+    title: title,
+    
   });
 
-  driverObj = {marker:driver};
-
-  for (var j = 0; j < passengers.length; j++) {
+  var infoWindow = new google.maps.InfoWindow({});
     
-    var confirmed_by_driver = passengers[j].confirmed_by_driver;
-    var confirmObj = {};
-    var pendingObj = {};
-    if (confirmed_by_driver == "1" ){
-      confirmObj.user = passengers[j]["passenger_name"];
-      confirmObj.lat = passengers[j].lat;
-      confirmObj.lng = passengers[j].lng;
-      confirmed.push(confirmObj);
-      
-    }else{
-      pendingObj.user = passengers[j]["passenger_name"];
-      pendingObj.lat = passengers[j].lat;
-      pendingObj.lng = passengers[j].lng;
-      pending.push(pendingObj);
-    }
-  }
-  return { confirmed: confirmed, pending: pending };
+  this.setInfoWindow = function(content) {
+    
+    google.maps.event.addListener(marker, 'click', function () {
+      infoWindow.setContent(content);
+      infoWindow.open(map, this);
+    });
+
+    google.maps.event.addListener(infoWindow, 'domready', function() {
+      $(".add_passenger").click(function (evt) {
+        evt.preventDefault();
+        console.log(marker["icon"]);
+        directions.setWpMarkers({ marker: marker });
+        for (var i = 0; i < passengerObjs.length; i++) {
+          if (passengerObjs[i]["name"] === title) {
+            passengerObjs[i]["category"] = "confirmed";
+          }
+        }
+                
+        infoWindow.setContent(title + "<div><a href='' class='remove_passenger'>Ta bort personen från din resa!<a/></div>");
+        directions.refresh();
+      });
+
+      $(".remove_passenger").click(function (evt) {
+        evt.preventDefault();
+        console.log(marker["icon"]);
+        directions.removeWpMarker(title);
+        for (var i = 0; i < passengerObjs.length; i++) {
+          if (passengerObjs[i]["name"] === title) {
+            passengerObjs[i]["category"] = "pending";
+          }
+        }
+                
+        infoWindow.setContent(title + "<div><a href='' class='add_passenger'>Lägg till personen till din resa!<a/></div>");
+        directions.refresh();
+      });
+    });
+  };
+  
+  this.setIcon = function(url) {
+    marker.icon = url;
+  };
+
+  this.getPosition = function() {
+    return marker.getPosition();
+  };
 }
+
 
 
 

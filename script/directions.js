@@ -32,6 +32,23 @@ function Directions(mapObj, destObj, origObj, wayPObjs) {
     	dynamicUsrIndex = trip.passengers.length - 1;
     }
 
+    //test
+    this.setWpMarkers = function(wayPObj) {
+    	wpMarkers.push(wayPObj);
+    }
+
+    this.removeWpMarker = function(name) {
+    	console.log(wpMarkers[0]["marker"]["title"]);
+    	//var name = wayPObj["marker"]["title"];
+    	for (var i = 0; i < wpMarkers.length; i++) {
+    		wpMarker = wpMarkers[i];
+          	if (wpMarker["marker"]["title"] === name) {
+            	wpMarkers.splice(i, 1);
+            	
+    		}
+    	}
+    }
+
     this.setTrip = function(tripdata) {
     	trip = tripdata;
     }
