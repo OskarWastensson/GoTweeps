@@ -212,8 +212,8 @@ body{
 
 #birdLeftYellow{
 	position: absolute;
-	top: 208px;
-	right: 228px;
+	top: 190px;
+	right: 65px;
 	-moz-transform: rotate(0deg);
 
 	-webkit-transform: rotate(0deg);
@@ -255,8 +255,8 @@ img#yellow{
 
 #textWrapper{
 	position: absolute;
-	top: 295px;
-	right: 310px;
+	top: 260px;
+	right: 140px;
 	opacity: 0;
 	-moz-transform: rotate(15deg);
 	-moz-transition-property: opacity, right, top, -moz-transform; 
