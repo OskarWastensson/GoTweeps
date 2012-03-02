@@ -8,6 +8,7 @@ define('OAUTH_CALLBACK', 'http://localhost/gotweeps/callback.php');
 
 mysql_connect('localhost', 'root', 'root') or die(mysql_error());
 mysql_select_db('trip_api') or die(mysql_error());
+mysql_query('SET NAMES utf8');
 
 require_once('twitteroauth.php');
 
