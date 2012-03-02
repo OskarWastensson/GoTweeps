@@ -6,8 +6,8 @@ $(document).ready(function(){
   initialize();
 
   var tripId = getUrlVars()["id"];
-  // tripAPI/?/trips/ + tripId
-  $.getJSON('frontend/test.json', function(trip){
+  
+  $.getJSON('tripAPI/?/trips/' + tripId, function(trip){
     
     var trip = trip[0];
     
