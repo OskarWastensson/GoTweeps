@@ -50,7 +50,7 @@ function initialize(fromObj, toObj){
 
     };
 
-      $.post('http://localhost/git/gotweeps/tripAPI/?/trips', send, function(data) {
+      $.post('tripAPI/?/trips', send, function(data) {
         window.location.href = "confirm.php?trip=" + data[0].id;
       }, 'json'); 
   });

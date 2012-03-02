@@ -37,7 +37,7 @@ $(document).ready(function() {
         "user_to_destination": directions.newUserToDestination()
       }  // id of logged in user i set automically if users is missing
 
-    $.post('http://localhost/git/gotweeps/tripAPI/?/trips/' + trip_id + '/passengers/', send, function(data) {
+    $.post('tripAPI/?/trips/' + trip_id + '/passengers/', send, function(data) {
       window.location.href = "confirm_passenger.php?trip=" + trip_id;
     }, 'json'); 
   });
@@ -63,7 +63,7 @@ function initialize(){
   
 
   // Make JSON request for trip data
-  $.getJSON('http://localhost/git/gotweeps/TripAPI/?/trips/' + trip_id, function(data){
+  $.getJSON('TripAPI/?/trips/' + trip_id, function(data){
 
     var trip = data["0"];
 
