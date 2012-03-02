@@ -41,7 +41,7 @@
         <p id="number"></p>
         <h2>Pris/km</h2>
         <p id="price"></p>
-        <p id="example">(Vilket skulle bli <span id='calculation'>..</span> kr för dig om resan skulle bli som på bilden.)</p>
+        <!--<p id="example">(Vilket skulle bli <span id='calculation'>..</span> kr för dig om resan skulle bli som på bilden.)</p>-->
         <h2>Meddelande från förare</h2>
         <p id="message"></p>
         <input id="submit" type="submit" value="Jag vill åka med!">

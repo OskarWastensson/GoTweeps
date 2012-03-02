@@ -38,7 +38,7 @@
         <p id="price"></p>
         <h2>Meddelande från förare</h2>
         <p id="message"></p>
-        <input id="submit" type="submit" value="Jag vill åka med!">
+        <input id="submit" type="submit" value="Spara ändringar!">
       </form>
     </div>
 

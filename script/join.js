@@ -63,7 +63,7 @@ function initialize(){
   
 
   // Make JSON request for trip data
-  $.getJSON('TripAPI/?/trips/' + trip_id, function(data){
+  $.getJSON('tripAPI/?/trips/' + trip_id, function(data){
 
     var trip = data["0"];
 

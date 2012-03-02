@@ -130,7 +130,7 @@ function Directions(mapObj, destObj, origObj, wayPObjs) {
 				leg.pick_up_passenger.cost = pick_up_fee;
 				car.push(leg.pick_up_passenger);
 				leg.distance_before_leg = leg.pick_up_passenger.user_to_destination;
-				if(i == legs.length -1) {
+				if(i == legs.length - 1) {
 					leg.distance_after_leg = 0;
 				} else {
 					leg.distance_after_leg = legs[i+1].pick_up_passenger.user_to_destination;

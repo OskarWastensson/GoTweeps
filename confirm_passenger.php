@@ -70,7 +70,7 @@ if ($confirm) {
 			echo '<p>Event: ' . $trip['tag'] . '</p>
 			<p>Till: ' . $trip['destination_word'] . '</p>
 			<p>Ber&auml;knad ankomstid: ' . $trip['eta'] . '</p>
-			<p>Antal medresen&auml;rer: ' . $trip['users'] . '</p>
+			<p>Antal medresen&auml;rer: ' . $trip['max_passengers'] . '</p>
 			<p>Pris/km: ' . $trip['km_cost'] . '</p>
 			<p>Meddelande till medresen&auml;rer: ' . $trip['message'] . '</p>
 			<h1>@GoTweeps twittrar:</h1>

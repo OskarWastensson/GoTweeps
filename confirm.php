@@ -31,7 +31,7 @@ $trip = $obj->data[0];
 
 $confirm = isset($_POST['confirm_trip']) ? $_POST['confirm_trip'] : '';
 
-$message = '.@' . $access_token['screen_name'] . ' ska åka till #' . $trip['tag'] . ' i ' . $trip['destination_word'] . ' från ' . $trip['passengers'][0]['word'] . '. Åk med!. http://gotweeps/join.php?trip=' . $trip['id'];
+$message = '.@' . $access_token['screen_name'] . ' ska åka till #' . $trip['tag'] . ' i ' . $trip['destination_word'] . ' från ' . $trip['passengers'][0]['word'] . '. Åk med!. http://gotweeps.se/join.php?trip=' . $trip['id'];
 //$message = htmlentities($message);
 
 if ($confirm) {
