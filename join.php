@@ -15,6 +15,9 @@
   </head>
   <body>
     <div id="navBar">
+        <div id="logo">
+            <img src="images/logoMini.png">
+          </div>
         <ul>
             <li><a href="gotweeps.php">Starta ny resa</a></li>
             <li><a class="active" href="my_trips.php">Mina resor</a></li>

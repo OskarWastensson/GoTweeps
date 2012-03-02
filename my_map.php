@@ -28,10 +28,6 @@
     <div class='menu'>
 
       <form id='options'>
-        <label for="address">Min position</label>
-        <input id='address' name='location' type='text' />
-        <input id="latitude" type="hidden"/>
-        <input id="longitude" type="hidden"/>
         <h2>Event</h2>
         <p id="event"></p>
         <h2>Ankomst</h2>

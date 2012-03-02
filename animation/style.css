@@ -1,0 +1,346 @@
+body{
+	width: 100%;
+	margin: 0 auto;
+}
+
+#container{
+	height: 500px;
+	width: 960px;
+	margin: 0 auto;
+	position: relative;
+	top: 50px;
+	overflow: hidden;
+	-moz-transition-property: opacity; 
+	-moz-transition-duration: 1.5s;
+	-moz-transition-timing-function: linear; 
+	-moz-transition-delay: 23s;
+
+	-webkit-transition-property: opacity; 
+	-webkit-transition-duration: 1.5s;
+	-webkit-transition-timing-function: linear; 
+	-webkit-transition-delay: 23s;
+}
+
+#container.active{
+	opacity: 0;
+}
+
+#birdLeft {
+	position:relative;
+    top: -40px;
+    right: -100px;
+    float: right;
+    -moz-transition-property: right, top;
+    -moz-transition-timing-function: ease-in, ease-out;
+    -moz-transition-duration: 1s, 1s;
+    -moz-transition-delay: 3s;
+
+
+    -webkit-transition-property: right, top;
+    -webkit-transition-timing-function: ease-in, ease-out;
+    -webkit-transition-duration: 1s, 1s;
+    -webkit-transition-delay: 3s;
+  }
+
+#birdLeft.active {
+  	top: 290px;
+  	right: 980px;
+  }
+
+
+ #birdLeft img {
+ 	width: 50px;
+ 	-moz-transform: rotate(-30deg);
+    -moz-transition: all 1.5s ease-in-out;
+   
+    -webkit-transform: rotate(-30deg);
+    -webkit-transition: all 1.5s ease-in-out;
+
+  }
+  
+  #birdLeft img.active {
+  	width: 120px;
+    -webkit-transform: rotate(-10deg);
+    
+    -moz-transform: rotate(-10deg);
+  }
+
+
+
+
+
+#birdRight {
+	position:relative;
+    top: 300px;
+    left: -120px;
+    float: left;
+    -moz-transition-property: left, top;
+    -moz-transition: all 7s ease-in-out;
+    -moz-transition-delay: 7s;
+
+    -webkit-transition-property: left, top;
+    -webkit-transition: all 7s ease-in-out;
+    -webkit-transition-delay: 7s;
+  }
+
+#birdRight.active {
+  	top: 300px;
+  	left: 980px;
+  }
+
+#birdRight img#bR{
+	width: 120px;	
+}
+
+  #birdRight img#bR.active{
+    -webkit-animation-name: shake;
+	-webkit-animation-duration: 2.5s;
+	-webkit-transform-origin:50% 50%;
+	-webkit-animation-iteration-count: 2;
+	-webkit-animation-timing-function: linear;
+	-webkit-animation-delay: 7s;
+
+	-moz-animation-name: shake;
+	-moz-animation-duration: 2.5s;
+	-moz-transform-origin:50% 50%;
+	-moz-animation-iteration-count: 2;
+	-moz-animation-timing-function: linear;
+	-moz-animation-delay: 7s;
+  }
+
+  #wheels{
+  	position:relative;
+  	left: -70px;
+  	bottom: -10px;
+  	z-index: 10;
+  	width: 30px;
+  }
+
+  #birdRight.active #wheels{
+  	-webkit-animation-name: rotate; 
+    -webkit-animation-duration: 0.7s; 
+    -webkit-animation-iteration-count: 8;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-delay: 7s;
+
+    -moz-animation-name: rotate; 
+    -moz-animation-duration: 0.7s; 
+    -moz-animation-iteration-count: 8;
+    -moz-animation-timing-function: linear;
+    -moz-animation-delay: 7s;
+}
+
+@-webkit-keyframes rotate {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to { 
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@-moz-keyframes rotate {
+  from {
+    -moz-transform: rotate(0deg);
+  }
+  to { 
+    -moz-transform: rotate(360deg);
+  }
+}
+
+
+#birdLeft2{
+	position: relative;
+	float: right;
+	top: 300px;
+	right: -170px;
+	z-index: 100;
+	-moz-transition-property: right, top, -moz-transform; 
+	-moz-transition-duration: 0.5s, 0.5s, 0.5s;
+	-moz-transition-timing-function: ease-out, ease-in, ease-in; 
+	-moz-transition-delay: 19s, 19s, 19.5s;
+
+	-webkit-transition-property: right, top, -moz-transform; 
+	-webkit-transition-duration: 0.5s, 0.5s, 0.5s;
+	-webkit-transition-timing-function: ease-out, ease-in, ease-in; 
+	-webkit-transition-delay: 19s, 19s, 19.5s;
+}
+
+#birdLeft2.active{
+
+	top: 205px;
+	right: 8px;
+	-moz-transform: rotate(374deg);
+
+	-webkit-transform: rotate(374deg);
+}
+
+
+
+#birdLeft2 img{
+	width: 120px;
+	-moz-transition-property: width, opacity; 
+	-moz-transition-duration: 0.1s, 0.1s;
+	-moz-transition-timing-function: linear, linear; 
+	-moz-transition-delay: 19.5s, 20.8s;
+
+	-webkit-transition-property: width, opacity; 
+	-webkit-transition-duration: 0.1s, 0.1s;
+	-webkit-transition-timing-function: linear, linear; 
+	-webkit-transition-delay: 19.5s, 20.8s;
+}	
+
+#birdLeft2 img.active{
+	width: 243px;
+	opacity: 0;
+	-moz-animation-name: shake;
+	-moz-animation-duration: 0.2s;
+	-moz-transform-origin:50% 50%;
+	-moz-animation-iteration-count: 7;
+	-moz-animation-timing-function: linear;
+	-moz-animation-delay: 20.8s;
+
+	-webkit-animation-name: shake;
+	-webkit-animation-duration: 0.2s;
+	-webkit-transform-origin:50% 50%;
+	-webkit-animation-iteration-count: 7;
+	-webkit-animation-timing-function: linear;
+	-webkit-animation-delay: 20.8s;
+}
+
+
+
+#birdLeftYellow{
+	position: absolute;
+	top: 190px;
+	right: 65px;
+	-moz-transform: rotate(0deg);
+
+	-webkit-transform: rotate(0deg);
+}
+
+img#yellow{
+	width: 315px;
+	opacity: 0;
+	-moz-transition-property: opacity; 
+	-moz-transition-duration: 0.1s;
+	-moz-transition-timing-function: linear; 
+	-moz-transition-delay: 20.7s;
+
+	-webkit-transition-property: opacity; 
+	-webkit-transition-duration: 0.1s;
+	-webkit-transition-timing-function: linear; 
+	-webkit-transition-delay: 20.7s;
+}
+
+#birdLeftYellow.active img#yellow{
+	opacity: 1;
+	-moz-animation-name: shake;
+	-moz-animation-duration: 0.2s;
+	-moz-transform-origin:50% 50%;
+	-moz-animation-iteration-count: infinite;
+	-moz-animation-timing-function: linear;
+	-moz-animation-delay: 21s;
+
+	-webkit-animation-name: shake;
+	-webkit-animation-duration: 0.2s;
+	-webkit-transform-origin:50% 50%;
+	-webkit-animation-iteration-count: infinite;
+	-webkit-animation-timing-function: linear;
+	-webkit-animation-delay: 21s;
+}
+
+
+
+
+#textWrapper{
+	position: absolute;
+	top: 295px;
+	right: 310px;
+	opacity: 0;
+	-moz-transform: rotate(15deg);
+	-moz-transition-property: opacity, right, top, -moz-transform; 
+	-moz-transition-duration: 0s, 1s, 1s, 2s;
+	-moz-transition-timing-function: linear, linear, linear, linear; 
+	-moz-transition-delay: 20.7s, 22s, 22s, 22s;
+
+	-webkit-transform: rotate(15deg);
+	-webkit-transition-property: opacity, right, top, -webkit-transform; 
+	-webkit-transition-duration: 0s, 1s, 1s, 2s;
+	-webkit-transition-timing-function: linear, linear, linear, linear; 
+	-webkit-transition-delay: 20.7s, 22s, 22s, 22s;
+}
+
+#textWrapper.active{
+	opacity: 1;
+	top: 180px;
+	right: 380px;
+	-moz-transform: rotate(0deg);
+	-webkit-transform: rotate(0deg);
+}
+
+
+#text{
+	width: 100px;
+
+	-moz-transition-property: width; 
+	-moz-transition-duration: 3s;
+	-moz-transition-timing-function: linear; 
+	-moz-transition-delay: 22s;
+	-moz-animation-name: shake;
+	-moz-animation-duration: 0.2s;
+	-moz-transform-origin:50% 50%;
+	-moz-animation-iteration-count: infinite;
+	-moz-animation-timing-function: linear;
+	-moz-animation-delay: 22s;
+
+	-webkit-transition-property: width; 
+	-webkit-transition-duration: 3s;
+	-webkit-transition-timing-function: linear; 
+	-webkit-transition-delay: 22s;
+	-webkit-animation-name: shake;
+	-webkit-animation-duration: 0.2s;
+	-webkit-transform-origin:50% 50%;
+	-webkit-animation-iteration-count: infinite;
+	-webkit-animation-timing-function: linear;
+	-webkit-animation-delay: 22s;
+	}
+
+#textWrapper.active #text{
+	width: 600px;
+}
+
+
+
+
+
+
+@-moz-keyframes shake {
+	0% { -moz-transform: translate(2px, 1px) rotate(0deg); }
+	10% { -moz-transform: translate(-1px, -2px) rotate(-1deg); }
+	20% { -moz-transform: translate(-3px, 0px) rotate(1deg); }
+	30% { -moz-transform: translate(0px, 2px) rotate(0deg); }
+	40% { -moz-transform: translate(1px, -1px) rotate(1deg); }
+	50% { -moz-transform: translate(-1px, 2px) rotate(-1deg); }
+	60% { -moz-transform: translate(-3px, 1px) rotate(0deg); }
+	70% { -moz-transform: translate(2px, 1px) rotate(-1deg); }
+	80% { -moz-transform: translate(-1px, -1px) rotate(1deg); }
+	90% { -moz-transform: translate(2px, 2px) rotate(0deg); }
+	100% { -moz-transform: translate(1px, -2px) rotate(-1deg); }
+}
+
+
+@-webkit-keyframes shake {
+	0% { -webkit-transform: translate(2px, 1px) rotate(0deg); }
+	10% { -webkit-transform: translate(-1px, -2px) rotate(-1deg); }
+	20% { -webkit-transform: translate(-3px, 0px) rotate(1deg); }
+	30% { -webkit-transform: translate(0px, 2px) rotate(0deg); }
+	40% { -webkit-transform: translate(1px, -1px) rotate(1deg); }
+	50% { -webkit-transform: translate(-1px, 2px) rotate(-1deg); }
+	60% { -webkit-transform: translate(-3px, 1px) rotate(0deg); }
+	70% { -webkit-transform: translate(2px, 1px) rotate(-1deg); }
+	80% { -webkit-transform: translate(-1px, -1px) rotate(1deg); }
+	90% { -webkit-transform: translate(2px, 2px) rotate(0deg); }
+	100% { -webkit-transform: translate(1px, -2px) rotate(-1deg); }
+}
+

@@ -37,7 +37,7 @@ $(document).ready(function() {
         "user_to_destination": directions.newUserToDestination()
       }  // id of logged in user i set automically if users is missing
 
-    $.post('http://localhost/git/gotweeps/tripAPI/?/trips/' + trip_id + '/passengers/', send, function(data) {
+    $.post('tripAPI/?/trips/' + trip_id + '/passengers/', send, function(data) {
       window.location.href = "confirm_passenger.php?trip=" + trip_id;
     }, 'json'); 
   });
@@ -63,7 +63,7 @@ function initialize(){
   
 
   // Make JSON request for trip data
-  $.getJSON('http://localhost/git/gotweeps/TripAPI/?/trips/' + trip_id, function(data){
+  $.getJSON('TripAPI/?/trips/' + trip_id, function(data){
 
     var trip = data["0"];
 
@@ -96,8 +96,21 @@ function initialize(){
     destination.marker = new google.maps.Marker({
         map: map,
         position: new google.maps.LatLng(destinationLat,destinationLng),
-        title: trip.tag
+        title: trip.tag,
+        icon: "images/destination.png"
     });
+
+    var passengers = trip.passengers;
+    driverInfo = passengers.shift();
+    var location = new google.maps.LatLng(driverInfo.lat, driverInfo.lng);
+    var driver = new google.maps.Marker({
+        map: map,
+        position: location,
+        title: "Driver",
+        icon: "images/car2.png"
+    });
+
+    var driverObj = {marker:driver}
 
     google.maps.event.addListener(destination.marker, 'click', function () {
       infowindow.setContent(this.title);
@@ -139,7 +152,6 @@ function initialize(){
       geo.getCurrentPosition(function(position){
        initialLocation = new google.maps.LatLng(position.latitude, position.longitude);
        map.setCenter(initialLocation);
-       console.log("BRAA2");
       }, function(){
        handleNoGeolocation(browserSupportFlag);
       });
@@ -150,8 +162,7 @@ function initialize(){
     }
     
     // Directions object
-    origin = waypoints.shift();
-    directions = new Directions(map, destination, origin, waypoints);
+    directions = new Directions(map, destination, driverObj, waypoints);
     directions.setTrip(trip);
 
     var newPassenger = new InputLoc($('#address'), $('#latitude'), $('#longitude'));  

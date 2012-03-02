@@ -15,13 +15,14 @@ $tweet = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET, OAUTH_TOKEN, OAUTH_SECR
 
 $trip_id = $_GET["trip"];
 
-// Get trip information form db
-$query = "SELECT *  
-		  FROM trips
-		  WHERE confirmed = 0 AND id = '{$trip_id}'
-		  LIMIT 1";
-$result = mysql_query($query);
-$trip = mysql_fetch_assoc($result);
+// Get trip information from tripAPI
+
+$resource = 'trips';
+require_once('tripAPI/resource.class.php');
+require_once('tripAPI/'. $resource . '.resource.php');		
+
+$obj = new $resource('GET', $trip_id);
+$trip = $obj->data[0];
 
 // User should not confirm a trip that does not exist or has already been confirmed
 /* if (!$trip['id']) {
@@ -30,8 +31,8 @@ $trip = mysql_fetch_assoc($result);
 
 $confirm = isset($_POST['confirm_trip']) ? $_POST['confirm_trip'] : '';
 
-$message = '.@' . $access_token['screen_name'] . ' ska Âka till #' . $trip['tag'] . ' i ' . $trip['destination_word'] . '. ≈k med!. http://localhost/gotweeps/join.php?trip=' . $trip['id'];
-$message = htmlentities($message);
+$message = '.@' . $access_token['screen_name'] . ' ska √•ka till #' . $trip['tag'] . ' i ' . $trip['destination_word'] . ' fr√•n ' . $trip['passengers'][0]['word'] . '. √Ök med!. http://gotweeps/join.php?trip=' . $trip['id'];
+//$message = htmlentities($message);
 
 if ($confirm) {
  	$tweet->post('statuses/update', array('status' => $message));
@@ -48,7 +49,7 @@ if ($confirm) {
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>GoTweeps - Bekr‰fta resa</title>
+		<title>GoTweeps - Bekr√§fta resa</title>
 		<link type="text/css" rel="stylesheet" href="css/my_trips.css" />
 		<link type="text/css" rel="stylesheet" href="css/confirm.css" />
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>
@@ -70,11 +71,12 @@ if ($confirm) {
 			<?php
 			echo '<p>Event: ' . $trip['tag'] . '</p>
 			<p>Till: ' . $trip['destination_word'] . '</p>
+			<p>Fr√•n: ' . $trip['passengers'][0]['word'] . '</p>
 			<p>Ber&auml;knad ankomstid: ' . $trip['eta'] . '</p>
-			<p>Antal medresen&auml;rer: ' . $trip['users'] . '</p>
+			<p>Antal medresen&auml;rer: ' . $trip['max_passengers'] . '</p>
 			<p>Pris/km: ' . $trip['km_cost'] . '</p>
 			<p>Meddelande till medresen&auml;rer: ' . $trip['message'] . '</p>
-			<h1>@Gotweeps</h1>
+			<h1>@Gotweeps twittrar:</h1>
 			<form action="confirm.php?trip=' . $trip['id'] . '" method="post">
 				<p>' . $message . '</p>
 				<input type="submit" name="confirm_trip" id="confirm_trip" value="Confirm">
