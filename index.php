@@ -38,7 +38,7 @@
 
       <div id="birdRight" class="item">
         <img id="bR" src="animation/birdRight.png" class="item">
-        <img id="wheels" src="wheels.png" class="item">
+        <img id="wheels" src="animation/wheels.png" class="item">
       </div>
 
       <div id="textWrapper" class="item">

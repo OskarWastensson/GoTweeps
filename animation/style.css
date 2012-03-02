@@ -212,8 +212,8 @@ body{
 
 #birdLeftYellow{
 	position: absolute;
-	top: 208px;
-	right: 228px;
+	top: 190px;
+	right: 65px;
 	-moz-transform: rotate(0deg);
 
 	-webkit-transform: rotate(0deg);
